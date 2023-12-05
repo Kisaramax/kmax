@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-post {
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+            transition: transform 0.2s;
+        }
+
+        .blog-post:hover {
+            transform: scale(1.02);
+        }
+
+        .comment-section {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: #333;
+            animation: fadeInDown 1s;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            margin-top: 10px;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            margin-top: 10px;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            margin-top: 10px;
+        }
+
+        .btn-download {
+            margin-top: 10px;
+        }
+
+        .comment-input {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="header animate__animated animate__fadeInDown">Blogs</h1>
+
+        <div id="user-dashboard" style="display: none;">
+            <!-- User Dashboard for Authenticated Users -->
+            <div class="animate__animated animate__fadeIn">
+                <h2 class="h4 mb-3">Create a New Blog Post</h2>
+                <div class="mb-3">
+                    <input type="text" id="title" class="form-control" placeholder="Title">
+                </div>
+                <div class="mb-3">
+                    <textarea id="content" class="form-control" placeholder="Blog Content" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <input type="url" id="link-main" class="form-control" placeholder="Link To Main Post"
+                        rows="1"></input>
+                </div>
+                <div class="mb-3">
+                    <input type="url" id="link-mod" class="form-control" placeholder="Link To Mod" rows="1"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="image">Upload an Image:</label>
+                    <input type="file" id="image" class="form-control" accept="image/*">
+                </div>
+
+                <div class="mb-3">
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+                <button id="create-post" class="btn btn-primary">Create Post</button>
+            </div>
+        </div>
+
+        <!-- Blog Posts -->
+        <div id="blog-posts" class="mt-4"></div>
+
+        <div id="login-form" class="mt-4">
+            <!-- Firebase Authentication Login Form for Non-Authenticated Users -->
+            <div class="animate__animated animate__fadeIn">
+                <h2 class="h4 mb-3 text-center">Login</h2>
+                <div class="mb-3">
+                    <input type="email" id="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="Password">
+                </div>
+                <button id="login" class="btn btn-primary btn-block">Login</button>
+            </div>
+        </div>
+
+        <button id="logout" class="btn btn-danger mt-3" style="display: none;">Logout</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
+
+    <script>
+        // Firebase Configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAcbV1n39Ze2wTtVIYmkLkWDUFN2ERhGIg",
+            authDomain: "kmaxmods-web.firebaseapp.com",
+            databaseURL: "https://kmaxmods-web-default-rtdb.firebaseio.com",
+            projectId: "kmaxmods-web",
+            storageBucket: "kmaxmods-web.appspot.com",
+            messagingSenderId: "782482276375",
+            appId: "1:782482276375:web:7463a94068b20e5f125c52",
+            measurementId: "G-MC0GMPM8K8",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const appCheck = firebase.appCheck();
+        appCheck.activate(
+            '6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790', true);
+
+
+        // Firebase Realtime Database Reference
+        var db = firebase.database();
+        var storage = firebase.storage();
+        var auth = firebase.auth();
+
+        // Reference to the 'posts' node in the database
+        var postsRef = db.ref('posts');
+
+        // Function to delete a post
+        function deletePost(postId) {
+            if (confirm('Are you sure you want to delete this post?')) {
+                postsRef.child(postId).remove().then(function () {
+                    alert('Post deleted successfully.');
+                }).catch(function (error) {
+                    alert('Error deleting the post: ' + error.message);
+                });
+            }
+        }
+
+        // Function to toggle comment section visibility
+        function toggleCommentSection(postId) {
+            var commentSection = document.getElementById('comment-section-' + postId);
+            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Function to add comments
+        function addComment(postId) {
+            var commentInput = document.getElementById('comment-input-' + postId);
+            var commentText = commentInput.value;
+            if (!commentText) {
+                alert('Please enter a comment.');
+                return;
+            }
+
+            var commentsRef = db.ref('comments/' + postId);
+            var user = auth.currentUser;
+
+            if (user) {
+                // If the user is authenticated, associate the comment with their username
+                var username = user.displayName || 'Admin';
+                var commenterType = 'Authenticated User';
+                if (user.emailVerified) {
+                    commenterType += ' <i class="fa fa-check-circle" style="color: #009900;"></i>';
+                }
+
+                commentsRef.push({
+                    text: commentText,
+                    username: commenterType + ' (' + username + ')',
+                }).then(function () {
+                    // Add animation to comment section display
+                    anime({
+                        targets: '#comment-section-' + postId,
+                        height: ['0', '100%'],
+                        duration: 500,
+                        easing: 'easeInOutQuad',
+                        complete: function () {
+                            commentInput.value = '';
+                        }
+                    });
+                }).catch(function (error) {
+                    alert('Error adding the comment: ' + error.message);
+                });
+            } else {
+                // For anonymous users, set the username to "Anonymous Downloader"
+                commentsRef.push({
+                    text: commentText,
+                    username: 'Anonymous Commenter',
+                }).then(function () {
+                    // Add animation to comment section display
+                    anime({
+                        targets: '#comment-section-' + postId,
+                        height: ['0', '100%'],
+                        duration: 500,
+                        easing: 'easeInOutQuad',
+                        complete: function () {
+                            commentInput.value = '';
+                        }
+                    });
+                }).catch(function (error) {
+                    alert('Error adding the comment: ' + error.message);
+                });
+            }
+        }
+
+        // Function to display comments for a specific post
+        function displayComments(postId) {
+            var commentsRef = db.ref('comments/' + postId);
+
+            commentsRef.on('child_added', function (snapshot) {
+                var comment = snapshot.val();
+                var commentDiv = document.createElement('div');
+                commentDiv.innerHTML = `
+            <strong>${comment.username}:</strong> ${comment.text}
+        `;
+                var commentsContainer = document.getElementById('comments-' + postId);
+                commentsContainer.appendChild(commentDiv);
+
+                // Add animation to show new comment
+                anime({
+                    targets: commentDiv,
+                    opacity: [0, 1],
+                    duration: 500,
+                    easing: 'easeInOutQuad',
+                });
+            });
+        }
+
+
+        // Event listener for the "Create Post" button
+        document.getElementById('create-post').addEventListener('click', async function () {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const image = document.getElementById('image').files[0];
+            const postLink = document.getElementById('link-main').value;
+            const modLink = document.getElementById('link-mod').value;
+
+            if (title && content && isImageFile(image)) {
+                const imageId = `${Date.now()}-${image.name}`;
+                const imageRef = storage.ref('images/' + imageId);
+
+                try {
+                    await imageRef.put(image);
+                    const imageUrl = await imageRef.getDownloadURL();
+
+                    await postsRef.push({
+                        title: title,
+                        content: content,
+                        imageUrl: imageUrl,
+                        link: postLink,
+                        modLink: modLink,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    });
+
+                    document.getElementById('title').value = '';
+                    document.getElementById('content').value = '';
+                    document.getElementById('image').value = '';
+                    document.getElementById('link-main').value = '';
+                    document.getElementById('link-mod').value = '';
+                } catch (error) {
+                    alert(error.message);
+                }
+            } else {
+                alert('Please provide a valid title, content, and image file.');
+            }
+        });
+
+        // Function to check if the file is an image
+        function isImageFile(file) {
+            if (file) {
+                const fileType = file.type.split('/')[0];
+                return fileType === 'image';
+            }
+            return false;
+        }
+
+
+        // Event listener for the "Login" button
+        document.getElementById('login').addEventListener('click', function () {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(function (userCredential) {
+                    var user = userCredential.user;
+                })
+                .catch(function (error) {
+                    alert('Error logging in: ' + error.message);
+                });
+        });
+
+        // Event listener for the "Logout" button
+        document.getElementById('logout').addEventListener('click', function () {
+            auth.signOut().then(function () {
+                // Sign-out successful.
+            }).catch(function (error) {
+                alert('Error logging out: ' + error.message);
+            });
+        });
+
+        // Function to check user authentication
+        function checkAuthState(user) {
+            var deleteButtons = document.querySelectorAll('.btn-danger'); // Select all delete buttons
+
+            if (user) {
+                // User is authenticated, show the user dashboard
+                document.getElementById('user-dashboard').style.display = 'block';
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('logout').style.display = 'block';
+
+                // Iterate through all delete buttons and show them
+                deleteButtons.forEach(function (button) {
+                    button.style.display = 'block';
+                });
+            } else {
+                // User is not authenticated, show the login form
+                document.getElementById('user-dashboard').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('logout').style.display = 'none';
+
+                // Iterate through all delete buttons and hide them
+                deleteButtons.forEach(function (button) {
+                    button.style.display = 'none';
+                });
+            }
+        }
+
+        // Check if the user is already authenticated
+        auth.onAuthStateChanged(checkAuthState);
+
+        // ...
+
+        // Function to load and display blog posts from Firebase
+        function loadBlogPosts() {
+            postsRef.on('child_added', function (snapshot) {
+                var post = snapshot.val();
+                var postId = snapshot.key;
+                var postDiv = document.createElement('div');
+                postDiv.id = postId; // Set the post's ID as the div's ID
+                postDiv.className = 'blog-post animate__animated animate__fadeIn';
+
+                // Decode timestamp to Date object
+                var postDate = new Date(post.timestamp);
+
+                // Check if the content has more than 50 words
+                var displayContent = post.content.split(' ').slice(0, 50).join(' ');
+                var fullContent = post.content;
+
+                postDiv.innerHTML = `
+            <h3>${post.title}</h3>
+            <div id="content-${postId}">
+                <p>${displayContent}</p>
+            </div>
+            ${post.content.split(' ').length > 50 ? `<span id="read-more-${postId}" class="read-more">... <a href="javascript:void(0);" onclick="expandPost('${postId}')">Read more</a></span>` : ''}
+            <span id="read-less-${postId}" class="read-less" style="display: none;"> <a href="javascript:void(0);" onclick="collapsePost('${postId}')">Read less</a></span>
+            <div class="post-info">
+                <p>Date: ${postDate.toLocaleString()}</p>
+                <img src="${post.imageUrl}" alt="Blog Image" class="img-fluid"><br>
+                <button class="btn btn-primary btn-download" onclick="window.location.href='${post.modLink}'">Download</button>
+                <button class="btn btn-primary" onclick="toggleCommentSection('${postId}')">Comments</button>
+                <div class="comment-section" id="comment-section-${postId}">
+                    <textarea id="comment-input-${postId}" class="form-control comment-input" placeholder="Add a comment"></textarea>
+                    <button class="btn btn-primary" onclick="addComment('${postId}')">Add Comment</button>
+                    <div id="comments-${postId}"></div>
+                </div>
+            </div>
+        `;
+
+                // Prepend the post to the beginning of the blog-posts container
+                document.getElementById('blog-posts').prepend(postDiv);
+
+                displayComments(postId); // Display existing comments for the post
+            });
+
+            // Listen for child_removed event to instantly remove deleted posts
+            postsRef.on('child_removed', function (snapshot) {
+                var postId = snapshot.key;
+                var postDiv = document.getElementById(postId);
+                if (postDiv) {
+                    postDiv.remove(); // Remove the corresponding post from the UI
+                }
+            });
+        }
+
+        // Function to expand a post when "Read more" is clicked
+        function expandPost(postId) {
+            var contentDiv = document.getElementById(`content-${postId}`);
+            var readMoreSpan = document.getElementById(`read-more-${postId}`);
+            var readLessSpan = document.getElementById(`read-less-${postId}`);
+            var fullContent = '';
+
+            postsRef.child(postId).once('value').then(function (snapshot) {
+                var post = snapshot.val();
+                fullContent = post.content;
+                contentDiv.innerHTML = `<p>${fullContent}</p>`;
+                // Display existing comments for the expanded post
+                displayComments(postId);
+            });
+
+            // Toggle visibility of "Read more" and "Read less" spans
+            if (readMoreSpan) {
+                readMoreSpan.style.display = 'none';
+            }
+            if (readLessSpan) {
+                readLessSpan.style.display = 'inline';
+            }
+        }
+
+        // Function to collapse a post when "Read less" is clicked
+        function collapsePost(postId) {
+            var contentDiv = document.getElementById(`content-${postId}`);
+            var readMoreSpan = document.getElementById(`read-more-${postId}`);
+            var readLessSpan = document.getElementById(`read-less-${postId}`);
+
+            // Check if contentDiv contains full content
+            if (contentDiv.innerHTML !== '') {
+                contentDiv.innerHTML = `<p>${contentDiv.innerText.split(' ').slice(0, 50).join(' ')}...</p>`;
+            }
+
+            // Toggle visibility of "Read more" and "Read less" spans
+            if (readMoreSpan) {
+                readMoreSpan.style.display = 'inline';
+            }
+            if (readLessSpan) {
+                readLessSpan.style.display = 'none';
+            }
+        }
+
+        // ...
+
+        // Call the function to load posts when the page loads
+        loadBlogPosts();
+
+
+    </script>
+</body>
+
+</html>
