@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Search</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #3936f4,
+          #281ee9,
+          #9c27b0,
+          #9c27b0,
+          #4c36f4
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 90%;
+        min-height: 100vh;
+        max-width: 600px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+        color: #fff;
+        animation: fadeInDown 1s;
+      }
+
+      #search-form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      #search-query {
+        border-radius: 10px;
+      }
+
+      #search-results {
+        margin-top: 20px; /* Add space between the search form and results */
+        overflow: auto; /* Enable scrolling if content exceeds container height */
+        max-height: 500px; /* Adjust the maximum height as needed */
+        padding-right: 20px; /* Create space for the scrollbar */
+      }
+
+      #search-button {
+        margin-top: 10px;
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+
+      .blog-post {
+        width: 100%;
+        margin-top: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .blog-post:hover {
+        transform: scale(1.02);
+      }
+
+      .blog-post h3 {
+        color: #ffffff;
+      }
+
+      .blog-post p {
+        color: #fff;
+      }
+
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        margin-top: 10px;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="header animate__animated animate__fadeIn">Search</h1>
+      <form id="search-form">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            id="search-query"
+            class="form-control"
+            placeholder="Enter keywords for search"
+          />
+          <button type="button" id="search-button" class="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </form>
+
+      <!-- Display Search Results Here -->
+      <div id="search-results"></div>
+    </div>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
+
+    <script>
+      // Firebase Configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAcbV1n39Ze2wTtVIYmkLkWDUFN2ERhGIg",
+        authDomain: "kmaxmods-web.firebaseapp.com",
+        databaseURL: "https://kmaxmods-web-default-rtdb.firebaseio.com",
+        projectId: "kmaxmods-web",
+        storageBucket: "kmaxmods-web.appspot.com",
+        messagingSenderId: "782482276375",
+        appId: "1:782482276375:web:7463a94068b20e5f125c52",
+        measurementId: "G-MC0GMPM8K8",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const appCheck = firebase.appCheck();
+      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
+
+      // Firebase Realtime Database Reference
+      var db = firebase.database();
+      var postsRef = db.ref("posts").orderByChild("timestamp").limitToLast(10);
+
+      // Function to perform the search
+
+      // Firebase Realtime Database Reference
+      function performSearch(query) {
+        var searchResultsDiv = document.getElementById("search-results");
+        searchResultsDiv.innerHTML = ""; // Clear previous search results
+
+        postsRef.once("value").then(function (snapshot) {
+          var sortedPosts = [];
+
+          snapshot.forEach(function (childSnapshot) {
+            var post = childSnapshot.val();
+            if (
+              post.title.toLowerCase().includes(query.toLowerCase()) ||
+              post.content.toLowerCase().includes(query.toLowerCase())
+            ) {
+              sortedPosts.push(post);
+            }
+          });
+
+          // Sort posts by timestamp in descending order
+          sortedPosts.sort(function (a, b) {
+            return b.timestamp - a.timestamp;
+          });
+
+          // Display the sorted posts as search results
+          sortedPosts.forEach(function (post) {
+            var resultDiv = document.createElement("div");
+            resultDiv.className = "blog-post animate__animated animate__fadeIn";
+            resultDiv.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.content}</p>
+                <img src="${post.imageUrl}" alt="Blog Image" class="img-fluid"><br>
+                <button class="btn btn-primary btn-download" onclick="window.location.href='${post.modLink}'">Download</button>
+            `;
+            searchResultsDiv.appendChild(resultDiv);
+          });
+        });
+      }
+
+      // Event listener for the search button
+      document
+        .getElementById("search-button")
+        .addEventListener("click", function () {
+          var searchQuery = document.getElementById("search-query").value;
+          performSearch(searchQuery);
+        });
+    </script>
+  </body>
+</html>
