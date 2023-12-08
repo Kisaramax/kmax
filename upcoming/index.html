@@ -1,259 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kmax Mods Home</title>
-  <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png">
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: radial-gradient(circle, rgb(97, 78, 245), rgba(249, 161, 244, 0.404));
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kmax Mods Home</title>
+    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        animation: colorChange 5s ease-in-out infinite alternate;
+        background: radial-gradient(
+          circle,
+          rgb(97, 78, 245),
+          rgba(249, 161, 244, 0.404)
+        );
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
 
-/* Navbar glassmorphism effect */
-.navbar {
-  background: rgba(255, 255, 255, 0.025);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+      @keyframes colorChange {
+        0% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+        50% {
+          background-color: rgba(249, 161, 244, 0.404);
+        }
+        100% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+      }
 
+      /* Navbar glassmorphism effect */
+      .navbar {
+        background: rgba(255, 255, 255, 0.025);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
 
-.navbar-brand,
-.navbar-nav .nav-link {
-  color: #ffffff;
-  font-weight: bold;
-}
+      .navbar-brand,
+      .navbar-nav .nav-link {
+        color: #ffffff;
+        font-weight: bold;
+      }
 
-    .container {
-      max-width: 1200px;
-      width: 90%;
-      margin: 80px auto 0;
-      display: flex;
-      flex-wrap: wrap; /* Allow cards to wrap to the next line */
-      justify-content: center; /* Center items horizontally */
-      gap: 20px;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Update card styles */
-.card {
-  background: rgba(241, 116, 116, 0.174); /* Change card background */
-  border-radius: 15px;
-  width: calc(50% - 20px);
-  transition: transform 0.3s ease-in-out;
-  overflow: hidden;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 15px 15px 0 0; /* Adjust image border-radius */
-}
-
-
-    .card-body {
-      padding: 20px;
-    }
-
-    .card-title {
-      margin-bottom: 10px;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-
-    .btn-primary {
-      background-color: #504bf4b5;
-      border: none;
-      border-radius: 5px;
-      display: block;
-      width: 100%;
-      padding: 8px 0;
-      text-align: center;
-      color: #fff;
-      text-decoration: none;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .btn-primary:hover {
-      background-color: #00a6f9;
-    }
-
-    /* Media query for smaller screens */
-    @media (max-width: 768px) {
       .container {
+        max-width: 1200px;
+        width: 90%;
+        margin: 80px auto 0;
+        display: flex;
+        flex-wrap: wrap; /* Allow cards to wrap to the next line */
+        justify-content: center; /* Center items horizontally */
+        gap: 20px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Update card styles */
+      .card {
+        background: rgba(241, 116, 116, 0.174); /* Change card background */
+        border-radius: 15px;
+        width: calc(50% - 20px);
+        transition: transform 0.3s ease-in-out;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 15px 15px 0 0; /* Adjust image border-radius */
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .card-title {
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .btn-primary {
+        background-color: #504bf4b5;
+        border: none;
+        border-radius: 5px;
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .btn-primary:hover {
+        background-color: #00a6f9;
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 768px) {
+        .container {
+          margin-top: 60px; /* Adjust top margin for better visibility */
+          padding: 10px;
+        }
+        .card {
+          width: calc(50% - 20px); /* Adjust card width for smaller screens */
+          min-width: calc(
+            50% - 20px
+          ); /* Set a minimum width for smaller screens */
+          max-width: calc(
+            50% - 20px
+          ); /* Set a maximum width for smaller screens */
+        }
+      }
+      @media (min-width: 1200px) {
+        .card {
+          width: calc(25% - 20px); /* Adjust card width for larger screens */
+        }
+      }
+
+      /* Style for the carousel container */
+      #carouselContainer {
+        position: relative;
         margin-top: 60px; /* Adjust top margin for better visibility */
-        padding: 10px;
+        width: 80%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+        border-radius: 25px; /* Adjust the border-radius as needed */
+        background: rgba(255, 255, 255, 0.2); /* Adjust the transparency */
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       }
-      .card {
-        width: calc(50% - 20px); /* Adjust card width for smaller screens */
-        min-width: calc(50% - 20px); /* Set a minimum width for smaller screens */
-        max-width: calc(50% - 20px); /* Set a maximum width for smaller screens */
+
+      /* Style for the carousel itself */
+      #carouselExampleIndicators {
+        border-radius: 25px; /* Adjust the border-radius as needed */
+        overflow: hidden;
       }
-    }
-    @media (min-width: 1200px) {
-      .card {
-        width: calc(25% - 20px); /* Adjust card width for larger screens */
+
+      /* Style for carousel images to control height */
+      .carousel-item img {
+        height: 250px; /* Adjust the height as needed */
+        object-fit: cover; /* Maintain aspect ratio */
       }
-    }
-
-    /* Style for the carousel container */
-    #carouselContainer {
-      position: relative;
-      margin-top: 60px; /* Adjust top margin for better visibility */
-      width: 80%;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      overflow: hidden;
-      border-radius: 25px; /* Adjust the border-radius as needed */
-      background: rgba(255, 255, 255, 0.2); /* Adjust the transparency */
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Style for the carousel itself */
-    #carouselExampleIndicators {
-      border-radius: 25px; /* Adjust the border-radius as needed */
-      overflow: hidden;
-    }
-    
-    /* Style for carousel images to control height */
-    .carousel-item img {
-      height: 250px; /* Adjust the height as needed */
-      object-fit: cover; /* Maintain aspect ratio */
-    }
-  </style>
-</head>
-<body>
-  <!-- Bootstrap Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Kmax Mods</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#tab-about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Glassmorphism Carousel Container with Padding -->
-  <div id="carouselContainer" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 25px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); padding: 20px; margin-top: 90px;">
-    <!-- Carousel -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <!-- Replace the placeholder images -->
-        <div class="carousel-item active">
-          <img src="https://i.pinimg.com/564x/60/f9/76/60f9768141449c6b16b9e9abc5e2cb05.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.pinimg.com/564x/e9/a4/0d/e9a40d9c623a676c8f3b1d487341ca1e.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.pinimg.com/originals/03/60/37/036037dc01dfa555269835ce246b5132.gif" class="d-block w-100" alt="...">
+    </style>
+  </head>
+  <body>
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Kmax Mods</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tab-about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </div>
-  
-  <div class="container">
-    <div class="card">
-      <img src="https://i.ibb.co/4Y3kbJQ/Picsart-23-10-02-18-23-43-022.jpg" alt="Image">
-      <div class="card-body">
-        <h5 class="card-title">Asphalt 8</h5>
-        <a href="#" class="btn btn-primary">Download</a>
+    </nav>
+
+    <!-- Glassmorphism Carousel Container with Padding -->
+    <div
+      id="carouselContainer"
+      style="
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-top: 90px;
+      "
+    >
+      <!-- Carousel -->
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <!-- Replace the placeholder images -->
+          <div class="carousel-item active">
+            <img
+              src="https://i.pinimg.com/564x/60/f9/76/60f9768141449c6b16b9e9abc5e2cb05.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://i.pinimg.com/564x/e9/a4/0d/e9a40d9c623a676c8f3b1d487341ca1e.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://i.pinimg.com/originals/03/60/37/036037dc01dfa555269835ce246b5132.gif"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
-    <div class="card">
-      <img src="https://i.ibb.co/VYT0PnV/garena-free-fire.png" alt="Image">
-      <div class="card-body">
-        <h5 class="card-title">Free Fire</h5>
-        <a href="#" class="btn btn-primary">Soon...</a>
+
+    <div class="container">
+      <div class="card">
+        <img
+          src="https://i.ibb.co/4Y3kbJQ/Picsart-23-10-02-18-23-43-022.jpg"
+          alt="Image"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Asphalt 8</h5>
+          <a href="#" class="btn btn-primary">Download</a>
+        </div>
       </div>
-    </div>
-    <div class="card">
-        <img src="https://via.placeholder.com/300" alt="Image">
+      <div class="card">
+        <img src="https://i.ibb.co/VYT0PnV/garena-free-fire.png" alt="Image" />
+        <div class="card-body">
+          <h5 class="card-title">Free Fire</h5>
+          <a href="#" class="btn btn-primary">Soon...</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300" alt="Image" />
         <div class="card-body">
           <h5 class="card-title">App Name</h5>
           <a href="#" class="btn btn-primary" id="ex">Install</a>
         </div>
       </div>
       <div class="card">
-        <img src="https://via.placeholder.com/300" alt="Image">
+        <img src="https://via.placeholder.com/300" alt="Image" />
         <div class="card-body">
           <h5 class="card-title">App Name</h5>
           <a href="#" class="btn btn-primary" id="ex">Install</a>
         </div>
       </div>
-  </div>
-
-  <div class="glass-container1" id="about">
-    <h1>About Us</h1>
-    <div class="content1">
-      <div class="profile1">
-        <img src="https://yt3.googleusercontent.com/BrtAPxsV4pNAIM6JfzmvN4kxOTE0qK7eu29a_z1QphnmUwZbWEiXEPE5zpT_7_Jra3OC6pKjyA=s176-c-k-c0x00ffffff-no-rj" alt="User 1">
-        <h2>Kmax Gaming</h2>
-        <p>Idea & Page Functioning</p>
-      </div>
-      <div class="profile1">
-        <img src="https://yt3.googleusercontent.com/y8JodTdnYlqIvVDYA6QgY1JskVcrE1SCmBWKpqSa0gNRrHbOvcUoD7Xf995XU3jlA0SABLxZ=s176-c-k-c0x00ffffff-no-rj" alt="User 2">
-        <h2>DreamPLAY Dev</h2>
-        <p>UI Designer</p>
-      </div>
-      <div class="profile1">
-        <img src="https://yt3.googleusercontent.com/5qQCrMNyusTgiiRs9O-vepgggHbGW42kCxdt0yB1O5797FFjA9c6oleAV0b2t1DV33HBpsPZxw=s176-c-k-c0x00ffffff-no-rj" alt="User 2">
-        <h2>YTSchool</h2>
-        <p>Testing & debugging</p>
-      </div>
-      <!-- Add more profiles as needed -->
     </div>
-  </div>
 
-  <!-- Bootstrap JS and Popper.js -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="glass-container1" id="about">
+      <h1>About Us</h1>
+      <div class="content1">
+        <div class="profile1">
+          <img
+            src="https://yt3.googleusercontent.com/BrtAPxsV4pNAIM6JfzmvN4kxOTE0qK7eu29a_z1QphnmUwZbWEiXEPE5zpT_7_Jra3OC6pKjyA=s176-c-k-c0x00ffffff-no-rj"
+            alt="User 1"
+          />
+          <h2>Kmax Gaming</h2>
+          <p>Idea & Page Functioning</p>
+        </div>
+        <div class="profile1">
+          <img
+            src="https://yt3.googleusercontent.com/y8JodTdnYlqIvVDYA6QgY1JskVcrE1SCmBWKpqSa0gNRrHbOvcUoD7Xf995XU3jlA0SABLxZ=s176-c-k-c0x00ffffff-no-rj"
+            alt="User 2"
+          />
+          <h2>DreamPLAY Dev</h2>
+          <p>UI Designer</p>
+        </div>
+        <div class="profile1">
+          <img
+            src="https://yt3.googleusercontent.com/5qQCrMNyusTgiiRs9O-vepgggHbGW42kCxdt0yB1O5797FFjA9c6oleAV0b2t1DV33HBpsPZxw=s176-c-k-c0x00ffffff-no-rj"
+            alt="User 2"
+          />
+          <h2>YTSchool</h2>
+          <p>Testing & debugging</p>
+        </div>
+        <!-- Add more profiles as needed -->
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Script to initialize the carousel -->
     <script>
       // Initialize the carousel
-      var myCarousel = document.querySelector('#carouselExampleIndicators');
+      var myCarousel = document.querySelector("#carouselExampleIndicators");
       var carousel = new bootstrap.Carousel(myCarousel, {
         interval: 5000, // Adjust the interval time in milliseconds (2000ms = 2 seconds)
-        wrap: true // Set to true if you want the carousel to loop
+        wrap: true, // Set to true if you want the carousel to loop
       });
     </script>
-</body>
+  </body>
 </html>
