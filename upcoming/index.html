@@ -159,6 +159,28 @@
         height: 250px; /* Adjust the height as needed */
         object-fit: cover; /* Maintain aspect ratio */
       }
+      /* Style for the glassmorphism clock */
+      .glassmorphism-clock {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-top: 90px; /* Adjust margin top as needed */
+        margin-left: 30px;
+        margin-right: 30px;
+        text-align: center;
+        border-radius: 25px;
+      }
+
+      #clock {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      #date {
+        font-size: 1.5rem;
+        color: #777;
+      }
     </style>
   </head>
   <body>
@@ -192,6 +214,11 @@
         </div>
       </div>
     </nav>
+
+    <div class="glassmorphism-clock">
+      <h1 id="clock"></h1>
+      <h3 id="date"></h3>
+    </div>
 
     <!-- Glassmorphism Carousel Container with Padding -->
     <div
@@ -336,6 +363,29 @@
         interval: 5000, // Adjust the interval time in milliseconds (2000ms = 2 seconds)
         wrap: true, // Set to true if you want the carousel to loop
       });
+
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+        const day = now.toLocaleString("default", { weekday: "long" });
+        const month = now.toLocaleString("default", { month: "long" });
+        const date = now.getDate();
+        const year = now.getFullYear();
+
+        const clock = document.getElementById("clock");
+        const dateDisplay = document.getElementById("date");
+
+        clock.textContent = `${hours}:${minutes}:${seconds}`;
+        dateDisplay.textContent = `${day}, ${month} ${date}, ${year}`;
+      }
+
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+
+      // Initial call to display the clock immediately
+      updateClock();
     </script>
   </body>
 </html>
