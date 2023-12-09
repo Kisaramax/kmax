@@ -257,38 +257,8 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="card">
-        <img
-          src="https://i.ibb.co/4Y3kbJQ/Picsart-23-10-02-18-23-43-022.jpg"
-          alt="Image"
-        />
-        <div class="card-body">
-          <h5 class="card-title">Asphalt 8</h5>
-          <a href="#" class="btn btn-primary">Download</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://i.ibb.co/VYT0PnV/garena-free-fire.png" alt="Image" />
-        <div class="card-body">
-          <h5 class="card-title">Free Fire</h5>
-          <a href="#" class="btn btn-primary">Soon...</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/300" alt="Image" />
-        <div class="card-body">
-          <h5 class="card-title">App Name</h5>
-          <a href="#" class="btn btn-primary" id="ex">Install</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/300" alt="Image" />
-        <div class="card-body">
-          <h5 class="card-title">App Name</h5>
-          <a href="#" class="btn btn-primary" id="ex">Install</a>
-        </div>
-      </div>
+    <div class="container" id="mods-container">
+      <!-- Mod cards will be dynamically added here -->
     </div>
 
     <div class="glass-container1" id="about">
@@ -336,6 +306,67 @@
         interval: 5000, // Adjust the interval time in milliseconds (2000ms = 2 seconds)
         wrap: true, // Set to true if you want the carousel to loop
       });
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
+
+    <script>
+      // Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
+        authDomain: "mod-store-8bce7.firebaseapp.com",
+        databaseURL:
+          "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mod-store-8bce7",
+        storageBucket: "mod-store-8bce7.appspot.com",
+        messagingSenderId: "671264986944",
+        appId: "1:671264986944:web:47377a33cb39432d5acca5",
+        measurementId: "G-MKWHRDQRPM",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+      const modsRef = db.ref("mods");
+
+      // Function to load and display mods
+      function loadMods() {
+        modsRef.on("child_added", function (snapshot) {
+          var mod = snapshot.val();
+          var modId = snapshot.key;
+          var modDiv = document.createElement("div");
+          modDiv.className = "card animate__animated animate__fadeIn";
+
+          modDiv.innerHTML = `
+            <img src="${mod.imageUrl}" alt="Mod Image">
+            <div class="card-body">
+                <h3 class="card-title">${mod.title}</h3>
+                <a class="btn-primary" href="${mod.downloadLink}" target="_blank">Download</a>
+            </div>
+        `;
+
+          document.getElementById("mods-container").appendChild(modDiv);
+        });
+
+        modsRef.on("child_removed", function (snapshot) {
+          var modId = snapshot.key;
+          var modDiv = document.getElementById(modId);
+          if (modDiv) {
+            modDiv.remove();
+          }
+        });
+      }
+
+      // Call the function to load mods when the page loads
+      loadMods();
+
+      document.head.appendChild(style);
     </script>
   </body>
 </html>
