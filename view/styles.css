@@ -1,0 +1,60 @@
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #EDEDED, #FFFFFF);
+  }
+  
+  /* Top Navigation Bar styles */
+  .top-navigation {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Main Banner Image styles */
+  .main-banner {
+    /* Styles for your banner image */
+  }
+  
+  /* Table for Mod Info styles */
+  .glass-table {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Download Button styles */
+  .download-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #504bf4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .download-btn:hover {
+    background-color: #00a6f9;
+  }
+  
+  /* Glassmorphism Container styles */
+  .glass-container {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Another Image styles */
+  .another-image {
+    /* Styles for your other image */
+  }
+  

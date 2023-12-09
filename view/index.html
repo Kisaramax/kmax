@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mod Info</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+       body {
+        font-family: "Arial", sans-serif;
+        animation: colorChange 5s ease-in-out infinite alternate;
+        background: radial-gradient(
+          circle,
+          rgb(97, 78, 245),
+          rgba(249, 161, 244, 0.404)
+        );
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      @keyframes colorChange {
+        0% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+        50% {
+          background-color: rgba(249, 161, 244, 0.404);
+        }
+        100% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+      }
+
+      /* Navbar glassmorphism effect */
+      .navbar {
+        background: rgba(255, 255, 255, 0.025);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar-brand,
+      .navbar-nav .nav-link {
+        color: #ffffff;
+        font-weight: bold;
+      }
+
+      /* Glassmorphism effect for Table */
+      .glass-table {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 80%; /* Adjust the width as needed */
+        max-width: 800px; /* Increased max-width for larger screens */
+        overflow: hidden;
+      }
+
+      /* Table row styles */
+      .glass-table tr {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Header cell styles */
+      .glass-table th {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 15px; /* Increased padding for header cells */
+        text-align: left;
+        flex: 1;
+        width: 50%;
+      }
+
+      /* Content cell styles */
+      .glass-table td {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 15px; /* Increased padding for content cells */
+        flex: 1;
+        width: 50%;
+      }
+
+      /* Main Banner Image */
+      .main-image {
+        margin-top: 80px; /* Adjust top margin for better visibility */
+        width: 95%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 25px;
+        max-width: 50%;
+        height: auto;
+      }
+
+      /* Media query for larger screens */
+      @media (min-width: 1200px) {
+        .main-image {
+          width: 60%;
+        }
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 767px) {
+        .main-image {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      /* Sub Images */
+      .sub-image {
+        max-width: 70%;
+        height: auto;
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 768px) {
+        .main-image {
+          max-width: 100%;
+          height: auto;
+        }
+
+        .sub-image {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+      /* Main Banner Image */
+      .main-image {
+        max-width: 100%;
+        height: auto;
+      }
+      /* Sub Images */
+      .sub-image {
+        max-width: 70%;
+        height: auto;
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 768px) {
+        .main-image {
+          max-width: 100%;
+          height: auto;
+        }
+        .sub-image {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Kmax Mods</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tab-about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Banner Image -->
+    <!-- Main Banner Image -->
+    <div class="jumbotron text-center">
+      <img
+        class="main-image img-fluid"
+        src="https://liteapks.com/wp-content/uploads/2022/07/asphalt-8-mod-apk.jpg"
+        alt="Main Image Description"
+      />
+    </div>
+
+    <!-- Table with Glassmorphism Effect -->
+    <div class="glass-table">
+      <table class="table table-borderless vertical-table">
+        <!-- Sample data, replace with actual mod info -->
+        <tbody>
+          <tr>
+            <th>App Name</th>
+            <td>Sample App</td>
+          </tr>
+          <tr>
+            <th>Publisher</th>
+            <td>Sample Publisher</td>
+          </tr>
+          <tr>
+            <th>Genre</th>
+            <td>Sample Genre</td>
+          </tr>
+          <tr>
+            <th>Size</th>
+            <td>Sample Size</td>
+          </tr>
+          <tr>
+            <th>MOD Info</th>
+            <td>Sample MOD Info</td>
+          </tr>
+          <!-- You can add more rows with mod info here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Download Button -->
+    <div class="text-center mt-4">
+      <button class="btn btn-primary btn-lg">Download</button>
+    </div>
+
+    <!-- Small Paragraph -->
+    <div class="glass-table p-4 mt-4">
+      <p>
+        Asphalt 8 has opened the most fierce races to serve the process of
+        conquering racing awards around the planet. The system continues to
+        develop new racing locations that allow players to conquer top speed
+        without encountering obstacles. Your opponent will become stronger when
+        the race officially enters the starting stage. The players have received
+        the equipment-related changes and are ready to be applied to their
+        vehicles. We are ready to accept requests for an updated version.
+      </p>
+    </div>
+
+    <!-- Another Image -->
+    <div class="glass-table mt-4 text-center" id="sub-image1">
+      <img
+        class="sub-image img-fluid"
+        src="https://liteapks.com/wp-content/uploads/2022/07/asphalt-8-mod1.jpg"
+        alt="Sub Image 1 Description"
+      />
+    </div>
+    <!-- Another Small Paragraph -->
+    <div class="glass-table p-4 mt-4">
+      <p>
+        Collections were formed, where Asphalt 8 members continued to collect
+        their favorite cars and use them in their races. With over 300
+        vehicle-related options, players will be able to tailor them to their
+        preferences. The system then allows you to customize your tournament
+        attire so that you can have the best reception. Your journey to racing
+        and conquering the dream speed will be marked by the achievements that
+        you score. Lamborghini, Bugatti, Porsche, and many others will be among
+        the choices for the winner.
+      </p>
+    </div>
+
+    <!-- Another Image -->
+    <div class="glass-table mt-4 text-center" id="sub-image2">
+      <img
+        class="sub-image img-fluid"
+        src="https://liteapks.com/wp-content/uploads/2022/07/asphalt-8-mod3.jpg"
+        alt="Sub Image 2 Description"
+      />
+    </div>
+
+    <!-- Another Small Paragraph -->
+    <div class="glass-table p-4 mt-4">
+      <p>
+        With a variety of terrain experiences, Asphalt 8 promises to bring
+        surprises related to the terrain. Players can race across the roads
+        connecting the desert and the vast hills. In addition, you can also
+        experience the process of driving a licensed car on city roads. To
+        become a professional racer, players need to increase their performance
+        and improve their vehicle type. Different terrains can create new
+        challenges during the race, including pressure when your opponent gets
+        ahead of you.
+      </p>
+    </div>
+
+    <!-- Second Download Button -->
+    <div class="text-center mt-4">
+      <button class="btn btn-primary btn-lg">Download</button>
+    </div>
+
+    <footer class="text-center py-4">
+      <p>&copy; 2023 Kmax Mods. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
