@@ -94,7 +94,7 @@
         font-size: 1.2rem;
         text-align: center; /* Center the card title */
       }
-      .card-description{
+      .card-description {
         text-align: center;
       }
 
@@ -185,8 +185,17 @@
 
       /* Style for carousel images to control height */
       .carousel-item img {
-        height: 250px; /* Adjust the height as needed */
+        height: 250px; /* Adjust the height for desktop */
+        width: 100%; /* Take full width of the container */
         object-fit: cover; /* Maintain aspect ratio */
+      }
+
+      /* Media query for mobile devices */
+      @media (max-width: 767px) {
+        .carousel-item img {
+          height: auto; /* Allow the height to adjust automatically */
+          max-width: 100%; /* Adjust image width for mobile */
+        }
       }
     </style>
   </head>
