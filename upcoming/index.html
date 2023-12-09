@@ -92,6 +92,10 @@
         margin-bottom: 10px;
         font-weight: bold;
         font-size: 1.2rem;
+        text-align: center; /* Center the card title */
+      }
+      .card-description{
+        text-align: center;
       }
 
       .btn-primary {
@@ -130,6 +134,31 @@
       @media (min-width: 1200px) {
         .card {
           width: calc(25% - 20px); /* Adjust card width for larger screens */
+        }
+      }
+
+      .loading-animation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+      }
+
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
         }
       }
 
@@ -335,8 +364,26 @@
       const db = firebase.database();
       const modsRef = db.ref("mods");
 
+      // Function to display loading animation
+      function showLoadingAnimation() {
+        var loadingDiv = document.createElement("div");
+        loadingDiv.className = "loading-animation";
+        loadingDiv.innerHTML = '<div class="spinner"></div>';
+        document.getElementById("mods-container").appendChild(loadingDiv);
+      }
+
+      // Function to hide loading animation
+      function hideLoadingAnimation() {
+        var loadingDiv = document.querySelector(".loading-animation");
+        if (loadingDiv) {
+          loadingDiv.remove();
+        }
+      }
+
       // Function to load and display mods
       function loadMods() {
+        showLoadingAnimation(); // Show loading animation before loading mods
+
         modsRef.on("child_added", function (snapshot) {
           var mod = snapshot.val();
           var modId = snapshot.key;
@@ -347,6 +394,7 @@
             <img src="${mod.imageUrl}" alt="Mod Image">
             <div class="card-body">
                 <h3 class="card-title">${mod.title}</h3>
+                <p class="card-description">${mod.description}</p>
                 <a class="btn-primary" href="${mod.downloadLink}" target="_blank">Download</a>
             </div>
         `;
@@ -361,11 +409,15 @@
             modDiv.remove();
           }
         });
+
+        // Hide loading animation after mods are loaded
+        modsRef.once("value", function (snapshot) {
+          hideLoadingAnimation();
+        });
       }
 
       // Call the function to load mods when the page loads
       loadMods();
-
       document.head.appendChild(style);
     </script>
   </body>
