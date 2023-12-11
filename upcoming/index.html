@@ -137,6 +137,20 @@
         }
       }
 
+      /* Style for disabled card */
+      .disabled-card {
+        background-color: #ccc; /* Ash color */
+        pointer-events: none; /* Disable click events */
+        opacity: 0.6; /* Reduce opacity for disabled appearance */
+      }
+
+      /* Style for the disabled text */
+      .disabled-text {
+        text-align: center;
+        font-style: italic;
+        color: #888; /* Lighter gray text */
+      }
+
       .loading-animation {
         display: flex;
         justify-content: center;
@@ -362,7 +376,8 @@
       const firebaseConfig = {
         apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
         authDomain: "mod-store-8bce7.firebaseapp.com",
-        databaseURL:"https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
+        databaseURL:
+          "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
         projectId: "mod-store-8bce7",
         storageBucket: "mod-store-8bce7.appspot.com",
         messagingSenderId: "671264986944",
@@ -373,7 +388,7 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       const appCheck = firebase.appCheck();
-      appCheck.activate('6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790', true);
+      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
       const db = firebase.database();
       const modsRef = db.ref("mods");
 
@@ -403,14 +418,32 @@
           var modDiv = document.createElement("div");
           modDiv.className = "card animate__animated animate__fadeIn";
 
-          modDiv.innerHTML = `
-            <img src="${mod.imageUrl}" alt="Mod Image">
-            <div class="card-body">
-                <h3 class="card-title">${mod.title}</h3>
-                <p class="card-description">${mod.version}</p>
-                <a class="btn-primary" href="view.html?id=${mod.id}" target="_blank">Download</a>
-            </div>
-        `;
+          // Check the mod status
+          if (mod.status === "disabled") {
+            modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
+            modDiv.innerHTML = `
+        <img src="${mod.imageUrl}" alt="Mod Image">
+        <div class="card-body">
+          <h3 class="card-title">${mod.title}</h3>
+          <p class="card-description">${mod.version}</p>
+          <p class="disabled-text">${mod.reason}</p>
+        </div>
+      `;
+            modDiv.onclick = function (event) {
+              event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
+              return false;
+            };
+          } else {
+            // For enabled mods
+            modDiv.innerHTML = `
+        <img src="${mod.imageUrl}" alt="Mod Image">
+        <div class="card-body">
+          <h3 class="card-title">${mod.title}</h3>
+          <p class="card-description">${mod.version}</p>
+          <a class="btn-primary" href="view.html?id=${mod.id}" target="_blank">Download</a>
+        </div>
+      `;
+          }
 
           document.getElementById("mods-container").appendChild(modDiv);
         });
