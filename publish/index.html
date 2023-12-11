@@ -4,10 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Mod Info</title>
-    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png"/>
+    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="style.min.css" />
     <link rel="stylesheet" href="style2.css" />
+    <script>
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          // Redirect to login page if the user is not logged in
+          window.location.replace("404.html");
+        }
+      });
+    </script>
   </head>
   <body>
     <!-- Navigation bar -->
@@ -91,7 +99,13 @@
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Add Mod</button>
-        <button id="logoutButton" class="btn btn-danger" style="margin-top: 10px;">Logout</button>
+        <button
+          id="logoutButton"
+          class="btn btn-danger"
+          style="margin-top: 10px"
+        >
+          Logout
+        </button>
       </form>
     </div>
 
@@ -131,13 +145,6 @@
       const modsRef = db.ref("mods");
       const auth = firebase.auth();
 
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (!user) {
-          // Redirect to login page if the user is not logged in
-          window.location.replace("publish.html");
-        }
-      });
-
       // Function to display added mods
       function displayAddedMods() {
         modsRef.on("value", function (snapshot) {
@@ -149,7 +156,7 @@
               // Display mod information
               document.getElementById("addedMods").innerHTML += `
               <div class="col-12 col-md-6 col-xl-4 mb-3">
-            <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="publish.html?id=${mod.id}" title="Niagara Launcher">
+            <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="index.html?id=${mod.id}" title="Niagara Launcher">
                 <div class="d-flex" style="padding: 0.75rem;">
                     <div class="flex-shrink-0" style="width: 4rem; margin-right: 0.75rem;">
                         <img width="96" height="96" src="${mod.imageUrl}" class="rounded-lg wp-post-image" alt="${mod.title}" />
@@ -303,6 +310,7 @@
           }
         });
       }
+
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is logged in
