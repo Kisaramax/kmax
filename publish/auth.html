@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Admin Auth</title>
+    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png"/>
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="style.min.css" />
     <link rel="stylesheet" href="style2.css" />
@@ -67,7 +68,7 @@
             .signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
               // Redirect to mod addition page on successful login
-              window.location.href = "publish.html";
+              window.location.href = "index.html";
             })
             .catch((error) => {
               // Handle login errors
@@ -79,7 +80,7 @@
       auth.onAuthStateChanged((user) => {
         if (user) {
           // User is signed in, redirect to mod addition page
-          window.location.href = "publish.html";
+          window.location.href = "index.html";
         } else {
           // User is signed out
           // You may handle this case if needed
