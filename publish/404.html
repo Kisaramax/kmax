@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Not Found</title>
+  <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css">
+
+  <style media="screen">
+    body {
+      background: linear-gradient(135deg, #7486ee, #aeabe9, rgb(234, 179, 179), #e1a8ec, #8071ea);
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .glass-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h1, h2, p, a {
+      color: #fff;
+    }
+
+    .shake {
+      animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+      20%, 80% {
+        transform: translate3d(2px, 0, 0);
+      }
+      30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+      40%, 60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+
+    /* Updated button styles */
+    .custom-btn {
+      background-color: #4a90e2; /* Change button color */
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .custom-btn:hover {
+      background-color: #357bd8; /* Change hover color */
+    }
+  </style>
+</head>
+<body>
+<div class="glass-container">
+  <h1 class="text-2xl font-semibold">404 - Page Not Found</h1>
+  <p class="my-4">The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+  <h2 class="text-xl font-semibold text-orange-500">Oops! Something went wrong.</h2>
+  <p class="my-4 shake">We couldn't find the page you were looking for.</p>
+  <a href="/" class="block custom-btn">Go Back to Homepage</a>
+</div>
+</body>
+</html>
