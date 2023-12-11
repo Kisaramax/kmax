@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="style.min.css" />
     <link rel="stylesheet" href="style2.css" />
-    <!-- Include your CSS and other necessary styles/scripts -->
-    <!-- Firebase configuration and other scripts -->
   </head>
   <body>
     <!-- Navigation bar -->
@@ -85,13 +83,14 @@
           <textarea class="form-control" id="reason"></textarea>
         </div>
         <div class="mb-3">
-          <label for="status" class="form-label">Avaliable Status</label>
+          <label for="status" class="form-label">Available Status</label>
           <select class="form-select" id="status">
             <option value="disabled">Disabled</option>
             <option value="active">Active</option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Add Mod</button>
+        <button id="logoutButton" class="btn btn-danger" style="margin-top: 10px;">Logout</button>
       </form>
     </div>
 
@@ -129,6 +128,14 @@
       appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
       const db = firebase.database();
       const modsRef = db.ref("mods");
+      const auth = firebase.auth();
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          // Redirect to login page if the user is not logged in
+          window.location.replace("publish.html");
+        }
+      });
 
       // Function to display added mods
       function displayAddedMods() {
@@ -295,6 +302,34 @@
           }
         });
       }
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // User is logged in
+          document.getElementById("logoutButton").style.display = "block";
+        } else {
+          // User is not logged in
+          document.getElementById("logoutButton").style.display = "none";
+          // Redirect to login page
+          window.location.replace("auth.html");
+        }
+      });
+
+      // Logout button functionality
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", function () {
+          firebase
+            .auth()
+            .signOut()
+            .then(function () {
+              // Sign-out successful.
+              window.location.replace("auth.html"); // Redirect to login page after logout
+            })
+            .catch(function (error) {
+              // An error happened.
+              console.error("Error occurred during logout:", error);
+            });
+        });
     </script>
   </body>
 </html>
