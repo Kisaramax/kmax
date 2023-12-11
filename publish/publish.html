@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Mod Info</title>
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="style.min.css" />
+    <link rel="stylesheet" href="style2.css" />
+    <!-- Include your CSS and other necessary styles/scripts -->
+    <!-- Firebase configuration and other scripts -->
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <!-- Navbar content -->
+    </nav>
+
+    <!-- Form to add mod information -->
+    <div class="container mt-5">
+      <h2>Add Mod Information</h2>
+      <form id="addModForm">
+        <div class="mb-3">
+          <label for="imageUrl" class="form-label">Logo</label>
+          <input type="url" class="form-control" id="imageUrl" required />
+        </div>
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" required />
+        </div>
+        <div class="mb-3">
+          <label for="main_image" class="form-label">Main Image</label>
+          <input type="url" class="form-control" id="main_image" required />
+        </div>
+        <div class="mb-3">
+          <label for="publisher" class="form-label">Publisher</label>
+          <input type="text" class="form-control" id="publisher" required />
+        </div>
+        <div class="mb-3">
+          <label for="genre" class="form-label">Genre</label>
+          <input type="text" class="form-control" id="genre" />
+        </div>
+        <div class="mb-3">
+          <label for="size" class="form-label">Size</label>
+          <input type="text" class="form-control" id="size" />
+        </div>
+        <div class="mb-3">
+          <label for="version" class="form-label">Version</label>
+          <input type="text" class="form-control" id="version" />
+        </div>
+        <div class="mb-3">
+          <label for="modInfo" class="form-label">MOD Info</label>
+          <textarea class="form-control" id="modInfo"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="downloadLink" class="form-label">Download Link</label>
+          <input type="text" class="form-control" id="downloadLink" />
+        </div>
+        <div class="mb-3">
+          <label for="paragraph1" class="form-label">Paragraph 1</label>
+          <textarea class="form-control" id="paragraph1"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="sub_image_1" class="form-label">Sub Image 1 URL</label>
+          <input type="text" class="form-control" id="sub_image_1" />
+        </div>
+        <div class="mb-3">
+          <label for="paragraph2" class="form-label">Paragraph 2</label>
+          <textarea class="form-control" id="paragraph2"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="sub_image_2" class="form-label">Sub Image 2 URL</label>
+          <input type="text" class="form-control" id="sub_image_2" />
+        </div>
+        <div class="mb-3">
+          <label for="paragraph3" class="form-label">Paragraph 3</label>
+          <textarea class="form-control" id="paragraph3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="ids" class="form-label">Mod Id</label>
+          <textarea class="form-control" id="ids"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="reason" class="form-label">Removed Reason</label>
+          <textarea class="form-control" id="reason"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label">Avaliable Status</label>
+          <select class="form-select" id="status">
+            <option value="disabled">Disabled</option>
+            <option value="active">Active</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Mod</button>
+      </form>
+    </div>
+
+    <!-- Display added mod information -->
+    <div class="container mt-5">
+      <h2>Added Mods</h2>
+      <div id="addedMods"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
+
+    <script>
+      // Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
+        authDomain: "mod-store-8bce7.firebaseapp.com",
+        databaseURL:
+          "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mod-store-8bce7",
+        storageBucket: "mod-store-8bce7.appspot.com",
+        messagingSenderId: "671264986944",
+        appId: "1:671264986944:web:47377a33cb39432d5acca5",
+        measurementId: "G-MKWHRDQRPM",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const appCheck = firebase.appCheck();
+      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
+      const db = firebase.database();
+      const modsRef = db.ref("mods");
+
+      // Function to display added mods
+      function displayAddedMods() {
+        modsRef.on("value", function (snapshot) {
+          const addedMods = snapshot.val();
+          document.getElementById("addedMods").innerHTML = ""; // Clear the content
+          if (addedMods) {
+            Object.keys(addedMods).forEach((key) => {
+              const mod = addedMods[key];
+              // Display mod information
+              document.getElementById("addedMods").innerHTML += `
+              <div class="col-12 col-md-6 col-xl-4 mb-3">
+            <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="publish.html?id=${mod.id}" title="Niagara Launcher">
+                <div class="d-flex" style="padding: 0.75rem;">
+                    <div class="flex-shrink-0" style="width: 4rem; margin-right: 0.75rem;">
+                        <img width="96" height="96" src="${mod.imageUrl}" class="rounded-lg wp-post-image" alt="${mod.title}" />
+                    </div>
+                    <div style="min-width: 0;">
+                        <h3 class="h6 font-weight-semibold text-truncate w-100 mb-1">${mod.title}</h3>
+                        <div class="small text-truncate text-muted">
+                            <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <path d="M567.938 243.908L462.25 85.374A48.003 48.003 0 0 0 422.311 64H153.689a48 48 0 0 0-39.938 21.374L8.062 243.908A47.994 47.994 0 0 0 0 270.533V400c0 26.51 21.49 48 48 48h480c26.51 0 48-21.49 48-48V270.533a47.994 47.994 0 0 0-8.062-26.625zM162.252 128h251.497l85.333 128H376l-32 64H232l-32-64H76.918l85.334-128z"></path>
+                            </svg>
+                            <span class="align-middle">${mod.version} </span>
+                            <span class="align-middle">+ </span>
+                            <span class="align-middle">${mod.size}</span>
+                        </div>
+                        <div class="small text-truncate text-muted">
+                            <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path d="M501.1 395.7L384 278.6c-23.1-23.1-57.6-27.6-85.4-13.9L192 158.1V96L64 0 0 64l96 128h62.1l106.6 106.6c-13.6 27.8-9.2 62.3 13.9 85.4l117.1 117.1c14.6 14.6 38.2 14.6 52.7 0l52.7-52.7c14.5-14.6 14.5-38.2 0-52.7zM331.7 225c28.3 0 54.9 11 74.9 31l19.4 19.4c15.8-6.9 30.8-16.5 43.8-29.5 37.1-37.1 49.7-89.3 37.9-136.7-2.2-9-13.5-12.1-20.1-5.5l-74.4 74.4-67.9-11.3L334 98.9l74.4-74.4c6.6-6.6 3.4-17.9-5.7-20.2-47.4-11.7-99.6.9-136.6 37.9-28.5 28.5-41.9 66.1-41.2 103.6l82.1 82.1c8.1-1.9 16.5-2.9 24.7-2.9zm-103.9 82l-56.7-56.7L18.7 402.8c-25 25-25 65.5 0 90.5s65.5 25 90.5 0l123.6-123.6c-7.6-19.9-9.9-41.6-5-62.7zM64 472c-13.2 0-24-10.8-24-24 0-13.3 10.7-24 24-24s24 10.7 24 24c0 13.2-10.7 24-24 24z"></path>
+                            </svg>
+                            <span class="align-middle">${mod.modInfo}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+            `;
+            });
+          }
+        });
+      }
+
+      // Function to handle form submission
+      document
+        .getElementById("addModForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const urlId = getParameterByName("id");
+
+          // Get values from the form inputs
+          const title = document.getElementById("title").value;
+          const publisher = document.getElementById("publisher").value;
+          const genre = document.getElementById("genre").value;
+          const size = document.getElementById("size").value;
+          const version = document.getElementById("version").value;
+          const modInfo = document.getElementById("modInfo").value;
+          const downloadLink = document.getElementById("downloadLink").value;
+          const paragraph1 = document.getElementById("paragraph1").value;
+          const sub_image_1 = document.getElementById("sub_image_1").value;
+          const paragraph2 = document.getElementById("paragraph2").value;
+          const sub_image_2 = document.getElementById("sub_image_2").value;
+          const paragraph3 = document.getElementById("paragraph3").value;
+          const reason = document.getElementById("reason").value;
+          const status = document.getElementById("status").value;
+          const imageUrl = document.getElementById("imageUrl").value;
+          const main_image = document.getElementById("main_image").value;
+          const id = document.getElementById("ids").value;
+
+          // Create an object with mod information
+          const newMod = {
+            title: title,
+            publisher: publisher,
+            genre: genre,
+            size: size,
+            version: version,
+            modInfo: modInfo,
+            downloadLink: downloadLink,
+            paragraph1: paragraph1,
+            sub_image_1: sub_image_1,
+            paragraph2: paragraph2,
+            sub_image_2: sub_image_2,
+            paragraph3: paragraph3,
+            reason: reason,
+            status: status,
+            imageUrl: imageUrl,
+            main_image: main_image,
+            id: id,
+            // Add other properties as needed
+          };
+
+          // If 'ids' field is empty, generate a new ID, else use the provided ID
+          const ids = document.getElementById("ids").value;
+          if (!ids) {
+            // Generate a unique ID
+            const newModKey = modsRef.push().key;
+            newMod.ids = newModKey; // Assign the generated ID to the mod
+          } else {
+            newMod.ids = ids; // Use the provided ID for updates
+          }
+
+          // Push the new mod data to Firebase database
+          modsRef
+            .child(newMod.ids)
+            .set(newMod)
+            .then(function () {
+              // Mod added/updated successfully
+              alert("Mod added/updated successfully!");
+              // Clear the form fields
+              document.getElementById("addModForm").reset();
+            })
+            .catch(function (error) {
+              // Handle errors if any
+              alert("Error adding/updating mod: " + error.message);
+            });
+        });
+
+      // Display added mods when the page loads
+      window.onload = function () {
+        displayAddedMods();
+      };
+      // Function to get URL parameters
+      function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      // Get the 'id' parameter from the URL
+      const urlId = getParameterByName("id");
+
+      if (urlId) {
+        // Fetch mod details based on the URL 'id' parameter
+        modsRef.child(urlId).once("value", function (snapshot) {
+          const mod = snapshot.val();
+          if (mod) {
+            // Fill the form fields with mod details
+            document.getElementById("title").value = mod.title || "";
+            document.getElementById("publisher").value = mod.publisher || "";
+            document.getElementById("genre").value = mod.genre || "";
+            document.getElementById("size").value = mod.size || "";
+            document.getElementById("version").value = mod.version || "";
+            document.getElementById("modInfo").value = mod.modInfo || "";
+            document.getElementById("downloadLink").value =
+              mod.downloadLink || "";
+            document.getElementById("paragraph1").value = mod.paragraph1 || "";
+            document.getElementById("sub_image_1").value =
+              mod.sub_image_1 || "";
+            document.getElementById("paragraph2").value = mod.paragraph2 || "";
+            document.getElementById("sub_image_2").value =mod.sub_image_2 || "";
+            document.getElementById("paragraph3").value = mod.paragraph3 || "";
+            document.getElementById("ids").value = mod.id || "";
+            document.getElementById("reason").value = mod.reason || "";
+            document.getElementById("statues").value = mod.statues || "";
+            document.getElementById("ids").value = mod.id || "";
+            document.getElementById("imageUrl").value = mod.statues || "";
+            document.getElementById("main_image").value = mod.main_image || "";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
