@@ -8,14 +8,6 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="style.min.css" />
     <link rel="stylesheet" href="style2.css" />
-    <script>
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (!user) {
-          // Redirect to login page if the user is not logged in
-          window.location.replace("404.html");
-        }
-      });
-    </script>
   </head>
   <body>
     <!-- Navigation bar -->
@@ -154,6 +146,13 @@
       const modsRef = db.ref("mods");
       const auth = firebase.auth();
       const now = Date.now();
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          // Redirect to login page if the user is not logged in
+          window.location.replace("404.html");
+        }
+      });
 
       // Function to display added mods
       function displayAddedMods() {
