@@ -68,37 +68,46 @@
     }
 
     .section-title {
-  text-align: center; /* Center the title */
-  margin-bottom: 20px; /* Add spacing between the title and the cards */
-  font-size: 24px; /* Adjust the font size as needed */
-  font-weight: bold; /* Make the title bold */
-  color: #333; /* Set the color */
-  position: relative; /* Establishes the parent for absolute positioning */
-}
+      text-align: center;
+      /* Center the title */
+      margin-bottom: 20px;
+      /* Add spacing between the title and the cards */
+      font-size: 24px;
+      /* Adjust the font size as needed */
+      font-weight: bold;
+      /* Make the title bold */
+      color: #333;
+      /* Set the color */
+      position: relative;
+      /* Establishes the parent for absolute positioning */
+    }
 
-.container {
-  position: relative; /* Ensures the cards are positioned relative to this container */
-}
+    .container {
+      position: relative;
+      /* Ensures the cards are positioned relative to this container */
+    }
 
-#mods-container {
-  padding-top: 50px; /* Provide space for the title to be displayed above the cards */
-}
+    #mods-container {
+      padding-top: 50px;
+      /* Provide space for the title to be displayed above the cards */
+    }
 
-/* Position the title above the cards */
-.section-title {
-  position: absolute;
-  top: 10px;
-  margin-bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+    /* Position the title above the cards */
+    .section-title {
+      position: absolute;
+      top: 10px;
+      margin-bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-/* Adjust margin for larger screens */
-@media (min-width: 768px) {
-  .section-title {
-    margin-bottom: 100px; /* Adjust spacing for larger screens */
-  }
-}
+    /* Adjust margin for larger screens */
+    @media (min-width: 768px) {
+      .section-title {
+        margin-bottom: 100px;
+        /* Adjust spacing for larger screens */
+      }
+    }
 
 
     /* Update card styles */
@@ -230,8 +239,10 @@
       position: relative;
       margin-top: 60px;
       /* Adjust top margin for better visibility */
-      width: 80%;
-      max-width: 1200px;
+      width: 90%;
+      /* Adjusted width for mobile devices */
+      max-width: 600px;
+      /* Set a maximum width if needed */
       margin-left: auto;
       margin-right: auto;
       overflow: hidden;
@@ -252,8 +263,8 @@
 
     /* Style for carousel images to control height */
     .carousel-item img {
-      height: 250px;
-      /* Adjust the height for desktop */
+      height: 200px;
+      /* Adjust the height for mobile */
       width: 100%;
       /* Take full width of the container */
       object-fit: cover;
@@ -262,13 +273,15 @@
 
     /* Media query for mobile devices */
     @media (max-width: 767px) {
-      .carousel-item img {
-        height: auto;
-        /* Allow the height to adjust automatically */
-        max-width: 100%;
-        /* Adjust image width for mobile */
-      }
-    }
+  #carouselContainer {
+    width: 95%; /* Adjusted width for smaller screens */
+    max-width: none; /* Remove max-width for smaller screens if needed */
+  }
+
+  .carousel-item img {
+    height: 180px; /* Adjusted height for smaller screens */
+  }
+}
   </style>
 </head>
 
