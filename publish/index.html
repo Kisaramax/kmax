@@ -153,6 +153,7 @@
       const db = firebase.database();
       const modsRef = db.ref("mods");
       const auth = firebase.auth();
+      const now = Date.now();
 
       // Function to display added mods
       function displayAddedMods() {
@@ -242,7 +243,7 @@
             imageUrl: imageUrl,
             main_image: main_image,
             id: id,
-            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            timestamp: now,
             // Add other properties as needed
           };
 
