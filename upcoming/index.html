@@ -67,28 +67,13 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     }
 
-    .section-title {
-      text-align: center;
-      /* Center the title */
-      margin-bottom: 20px;
-      /* Add spacing between the title and the cards */
-      font-size: 24px;
-      /* Adjust the font size as needed */
-      font-weight: bold;
-      /* Make the title bold */
-      color: #333;
-      /* Set the color */
-      position: relative;
-      /* Establishes the parent for absolute positioning */
-    }
-
     .container {
       position: relative;
       /* Ensures the cards are positioned relative to this container */
     }
 
     #mods-container {
-      padding-top: 50px;
+      padding-top: 10px;
       /* Provide space for the title to be displayed above the cards */
     }
 
@@ -453,16 +438,25 @@
     function loadMods() {
       showLoadingAnimation(); // Show loading animation before loading mods
 
-      modsRef.on("child_added", function (snapshot) {
-        var mod = snapshot.val();
-        var modId = snapshot.key;
-        var modDiv = document.createElement("div");
-        modDiv.className = "card animate__animated animate__fadeIn";
+      // Load mods ordered by timestamp (newest first)
+      modsRef.orderByChild('timestamp').on('value', function (snapshot) {
+        document.getElementById('mods-container').innerHTML = ''; // Clear previous mods
 
-        // Check the mod status
-        if (mod.status === "disabled") {
-          modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
-          modDiv.innerHTML = `
+        var modDivs = [];
+
+        snapshot.forEach(function (childSnapshot) {
+          var mod = childSnapshot.val();
+          var modId = childSnapshot.key;
+
+          var modDiv = document.createElement('div');
+          modDiv.id = modId; // Set the ID for the div to the modId
+
+          modDiv.className = "card animate__animated animate__fadeIn";
+
+          // Check the mod status
+          if (mod.status === "disabled") {
+            modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
+            modDiv.innerHTML = `
             <div class="wow">
                     <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
                         <div class="d-flex" style="padding: 0.75rem;">
@@ -490,13 +484,14 @@
                     </a>
                 </div>
       `;
-          modDiv.onclick = function (event) {
-            event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
-            return false;
-          };
-        } else {
-          // For enabled mods
-          modDiv.innerHTML = `
+            modDiv.onclick = function (event) {
+              event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
+              return false;
+            };
+
+          } else {
+            // For enabled mods
+            modDiv.innerHTML = `
             <div class="wow">
                     <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
                         <div class="d-flex" style="padding: 0.75rem;">
@@ -524,27 +519,33 @@
                     </a>
                 </div>
       `;
-        }
+          }
+          modDivs.push(modDiv); // Push each modDiv to the array
+        });
 
-        document.getElementById("mods-container").appendChild(modDiv);
-      });
+        // Reverse the order of modDivs
+        modDivs.reverse().forEach(function (modDiv) {
+          document.getElementById("mods-container").appendChild(modDiv);
+        });
 
-      modsRef.on("child_removed", function (snapshot) {
-        var modId = snapshot.key;
-        var modDiv = document.getElementById(modId);
-        if (modDiv) {
-          modDiv.remove();
-        }
-      });
+        modsRef.on("child_removed", function (snapshot) {
+          var modId = snapshot.key;
+          var modDiv = document.getElementById(modId);
+          if (modDiv) {
+            modDiv.remove();
+          }
+        });
 
-      // Hide loading animation after mods are loaded
-      modsRef.once("value", function (snapshot) {
-        hideLoadingAnimation();
+        // Hide loading animation after mods are loaded
+        modsRef.once("value", function (snapshot) {
+          hideLoadingAnimation();
+        });
       });
     }
 
     // Call the function to load mods when the page loads
     loadMods();
+
     document.head.appendChild(style);
   </script>
 </body>
