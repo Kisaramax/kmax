@@ -1,425 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kmax Mods Home</title>
-    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="style.min.css" />
-    <link rel="stylesheet" href="style2.css" />
-    <link rel="stylesheet" href="bootstrap.min.css" />
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        animation: colorChange 5s ease-in-out infinite alternate;
-        background: radial-gradient(
-          circle,
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kmax Mods Home</title>
+  <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.min.css" />
+  <link rel="stylesheet" href="style2.css" />
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      animation: colorChange 5s ease-in-out infinite alternate;
+      background: radial-gradient(circle,
           rgb(97, 78, 245),
-          rgba(249, 161, 244, 0.404)
-        );
-        color: #333;
-        margin: 0;
-        padding: 0;
+          rgba(249, 161, 244, 0.404));
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    @keyframes colorChange {
+      0% {
+        background-color: rgba(97, 78, 245, 0.8);
       }
 
-      @keyframes colorChange {
-        0% {
-          background-color: rgba(97, 78, 245, 0.8);
-        }
-        50% {
-          background-color: rgba(249, 161, 244, 0.404);
-        }
-        100% {
-          background-color: rgba(97, 78, 245, 0.8);
-        }
+      50% {
+        background-color: rgba(249, 161, 244, 0.404);
       }
 
-      /* Navbar glassmorphism effect */
-      .navbar {
-        background: rgba(255, 255, 255, 0.025);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      100% {
+        background-color: rgba(97, 78, 245, 0.8);
       }
+    }
 
-      .navbar-brand,
-      .navbar-nav .nav-link {
-        color: #ffffff;
-        font-weight: bold;
-      }
+    /* Navbar glassmorphism effect */
+    .navbar {
+      background: rgba(255, 255, 255, 0.025);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
+    .navbar-brand,
+    .navbar-nav .nav-link {
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 80px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      /* Allow cards to wrap to the next line */
+      justify-content: center;
+      /* Center items horizontally */
+      gap: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+  text-align: center; /* Center the title */
+  margin-bottom: 20px; /* Add spacing between the title and the cards */
+  font-size: 24px; /* Adjust the font size as needed */
+  font-weight: bold; /* Make the title bold */
+  color: #333; /* Set the color */
+  position: relative; /* Establishes the parent for absolute positioning */
+}
+
+.container {
+  position: relative; /* Ensures the cards are positioned relative to this container */
+}
+
+#mods-container {
+  padding-top: 50px; /* Provide space for the title to be displayed above the cards */
+}
+
+/* Position the title above the cards */
+.section-title {
+  position: absolute;
+  top: 10px;
+  margin-bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Adjust margin for larger screens */
+@media (min-width: 768px) {
+  .section-title {
+    margin-bottom: 100px; /* Adjust spacing for larger screens */
+  }
+}
+
+
+    /* Update card styles */
+    .card {
+      background: rgba(241, 116, 116, 0.174);
+      /* Change card background */
+      border-radius: 15px;
+      width: calc(50% - 20px);
+      transition: transform 0.3s ease-in-out;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+      /* Adjust image border-radius */
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+      /* Center the card title */
+    }
+
+    .card-description {
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #504bf4b5;
+      border: none;
+      border-radius: 5px;
+      display: block;
+      width: 100%;
+      padding: 8px 0;
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+      background-color: #00a6f9;
+    }
+
+    .card a {
+      text-decoration: none;
+      /* Remove underlines */
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
       .container {
-        max-width: 1200px;
-        width: 90%;
-        margin: 80px auto 0;
-        display: flex;
-        flex-wrap: wrap; /* Allow cards to wrap to the next line */
-        justify-content: center; /* Center items horizontally */
-        gap: 20px;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-top: 60px;
+        /* Adjust top margin for better visibility */
+        padding: 10px;
       }
 
-      /* Update card styles */
       .card {
-        background: rgba(241, 116, 116, 0.174); /* Change card background */
-        border-radius: 15px;
-        width: calc(50% - 20px);
-        transition: transform 0.3s ease-in-out;
-        overflow: hidden;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-      }
-
-      .card img {
         width: 100%;
-        object-fit: cover;
-        border-radius: 15px 15px 0 0; /* Adjust image border-radius */
+        /* Set the card width to 100% for mobile devices */
+        min-width: 100%;
+        /* Ensure the minimum width is 100% */
+        max-width: 100%;
+        /* Ensure the maximum width is 100% */
+        margin-bottom: 0px;
+        /* Add some spacing between the cards */
+      }
+    }
+
+    /* Style for disabled card */
+    .disabled-card {
+      background-color: #ccc;
+      /* Ash color */
+      pointer-events: none;
+      /* Disable click events */
+      opacity: 0.6;
+      /* Reduce opacity for disabled appearance */
+    }
+
+    /* Style for the disabled text */
+    .disabled-text {
+      text-align: center;
+      font-style: italic;
+      color: #888;
+      /* Lighter gray text */
+    }
+
+    .loading-animation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
 
-      .card-body {
-        padding: 20px;
+      100% {
+        transform: rotate(360deg);
       }
+    }
 
-      .card-title {
-        margin-bottom: 10px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        text-align: center; /* Center the card title */
-      }
-      .card-description {
-        text-align: center;
-      }
+    /* Style for the carousel container */
+    #carouselContainer {
+      position: relative;
+      margin-top: 60px;
+      /* Adjust top margin for better visibility */
+      width: 80%;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+      border-radius: 25px;
+      /* Adjust the border-radius as needed */
+      background: rgba(255, 255, 255, 0.2);
+      /* Adjust the transparency */
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-      .btn-primary {
-        background-color: #504bf4b5;
-        border: none;
-        border-radius: 5px;
-        display: block;
-        width: 100%;
-        padding: 8px 0;
-        text-align: center;
-        color: #fff;
-        text-decoration: none;
-        transition: background-color 0.3s ease-in-out;
-      }
+    /* Style for the carousel itself */
+    #carouselExampleIndicators {
+      border-radius: 25px;
+      /* Adjust the border-radius as needed */
+      overflow: hidden;
+    }
 
-      .btn-primary:hover {
-        background-color: #00a6f9;
-      }
-      .card a {
-        text-decoration: none; /* Remove underlines */
-      }
-      /* Media query for smaller screens */
-      @media (max-width: 768px) {
-        .container {
-          margin-top: 60px; /* Adjust top margin for better visibility */
-          padding: 10px;
-        }
-        .card {
-          width: 100%; /* Set the card width to 100% for mobile devices */
-          min-width: 100%; /* Ensure the minimum width is 100% */
-          max-width: 100%; /* Ensure the maximum width is 100% */
-          margin-bottom: 0px; /* Add some spacing between the cards */
-        }
-      }
+    /* Style for carousel images to control height */
+    .carousel-item img {
+      height: 250px;
+      /* Adjust the height for desktop */
+      width: 100%;
+      /* Take full width of the container */
+      object-fit: cover;
+      /* Maintain aspect ratio */
+    }
 
-      /* Style for disabled card */
-      .disabled-card {
-        background-color: #ccc; /* Ash color */
-        pointer-events: none; /* Disable click events */
-        opacity: 0.6; /* Reduce opacity for disabled appearance */
-      }
-
-      /* Style for the disabled text */
-      .disabled-text {
-        text-align: center;
-        font-style: italic;
-        color: #888; /* Lighter gray text */
-      }
-
-      .loading-animation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 200px;
-      }
-
-      .spinner {
-        border: 4px solid rgba(0, 0, 0, 0.1);
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* Style for the carousel container */
-      #carouselContainer {
-        position: relative;
-        margin-top: 60px; /* Adjust top margin for better visibility */
-        width: 80%;
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        overflow: hidden;
-        border-radius: 25px; /* Adjust the border-radius as needed */
-        background: rgba(255, 255, 255, 0.2); /* Adjust the transparency */
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
-
-      /* Style for the carousel itself */
-      #carouselExampleIndicators {
-        border-radius: 25px; /* Adjust the border-radius as needed */
-        overflow: hidden;
-      }
-
-      /* Style for carousel images to control height */
+    /* Media query for mobile devices */
+    @media (max-width: 767px) {
       .carousel-item img {
-        height: 250px; /* Adjust the height for desktop */
-        width: 100%; /* Take full width of the container */
-        object-fit: cover; /* Maintain aspect ratio */
+        height: auto;
+        /* Allow the height to adjust automatically */
+        max-width: 100%;
+        /* Adjust image width for mobile */
       }
+    }
+  </style>
+</head>
 
-      /* Media query for mobile devices */
-      @media (max-width: 767px) {
-        .carousel-item img {
-          height: auto; /* Allow the height to adjust automatically */
-          max-width: 100%; /* Adjust image width for mobile */
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Kmax Mods</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#tab-about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="dmca.html">DMCA</a>
-            </li>
-          </ul>
-        </div>
+<body>
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Kmax Mods</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tab-about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dmca.html">DMCA</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Glassmorphism Carousel Container with Padding -->
-    <div
-      id="carouselContainer"
-      style="
+  <!-- Glassmorphism Carousel Container with Padding -->
+  <div id="carouselContainer" style="
         background: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
         border-radius: 25px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         padding: 20px;
         margin-top: 90px;
-      "
-    >
-      <!-- Carousel -->
-      <div
-        id="carouselExampleIndicators"
-        class="carousel slide"
-        data-bs-ride="carousel"
-      >
-        <div class="carousel-inner">
-          <!-- Replace the placeholder images -->
-          <div class="carousel-item active">
-            <img
-              src="
-              https://i.pinimg.com/originals/92/9e/0a/929e0a1c16417ca331fd2f2c5480ee18.gif"
-              class="d-block w-100"
-              alt="..."
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://i.pinimg.com/originals/2d/33/05/2d3305338f33d6f23ae4986eb108d434.gif"
-              class="d-block w-100"
-              alt="..."
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="https://i.pinimg.com/originals/03/60/37/036037dc01dfa555269835ce246b5132.gif"
-              class="d-block w-100"
-              alt="..."
-            />
-          </div>
+      ">
+    <!-- Carousel -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Replace the placeholder images -->
+        <div class="carousel-item active">
+          <img src="
+              https://i.pinimg.com/originals/92/9e/0a/929e0a1c16417ca331fd2f2c5480ee18.gif" class="d-block w-100"
+            alt="..." />
         </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        <div class="carousel-item">
+          <img src="https://i.pinimg.com/originals/2d/33/05/2d3305338f33d6f23ae4986eb108d434.gif" class="d-block w-100"
+            alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.pinimg.com/originals/03/60/37/036037dc01dfa555269835ce246b5132.gif" class="d-block w-100"
+            alt="..." />
+        </div>
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
+  </div>
 
-    <div class="container" id="mods-container">
-      <h2>Recent Mods</h2>
-      <!-- Mod cards will be dynamically added here -->
-    </div>
+  <div class="container" id="mods-container">
+    <h2 class="section-title">Recent Mods</h2>
+  </div>
 
-    <div class="glass-container1" id="about">
-      <h1>About Us</h1>
-      <div class="content1">
-        <div class="profile1">
-          <img
-            src="https://yt3.googleusercontent.com/BrtAPxsV4pNAIM6JfzmvN4kxOTE0qK7eu29a_z1QphnmUwZbWEiXEPE5zpT_7_Jra3OC6pKjyA=s176-c-k-c0x00ffffff-no-rj"
-            alt="User 1"
-          />
-          <h2>Kmax Gaming</h2>
-          <p>Idea & Page Functioning</p>
-        </div>
-        <div class="profile1">
-          <img
-            src="https://yt3.googleusercontent.com/y8JodTdnYlqIvVDYA6QgY1JskVcrE1SCmBWKpqSa0gNRrHbOvcUoD7Xf995XU3jlA0SABLxZ=s176-c-k-c0x00ffffff-no-rj"
-            alt="User 2"
-          />
-          <h2>DreamPLAY Dev</h2>
-          <p>UI Designer</p>
-        </div>
-        <div class="profile1">
-          <img
-            src="https://yt3.googleusercontent.com/5qQCrMNyusTgiiRs9O-vepgggHbGW42kCxdt0yB1O5797FFjA9c6oleAV0b2t1DV33HBpsPZxw=s176-c-k-c0x00ffffff-no-rj"
-            alt="User 2"
-          />
-          <h2>YTSchool</h2>
-          <p>Testing & debugging</p>
-        </div>
-        <!-- Add more profiles as needed -->
+  <div class="glass-container1" id="about">
+    <h1>About Us</h1>
+    <div class="content1">
+      <div class="profile1">
+        <img
+          src="https://yt3.googleusercontent.com/BrtAPxsV4pNAIM6JfzmvN4kxOTE0qK7eu29a_z1QphnmUwZbWEiXEPE5zpT_7_Jra3OC6pKjyA=s176-c-k-c0x00ffffff-no-rj"
+          alt="User 1" />
+        <h2>Kmax Gaming</h2>
+        <p>Idea & Page Functioning</p>
       </div>
+      <div class="profile1">
+        <img
+          src="https://yt3.googleusercontent.com/y8JodTdnYlqIvVDYA6QgY1JskVcrE1SCmBWKpqSa0gNRrHbOvcUoD7Xf995XU3jlA0SABLxZ=s176-c-k-c0x00ffffff-no-rj"
+          alt="User 2" />
+        <h2>DreamPLAY Dev</h2>
+        <p>UI Designer</p>
+      </div>
+      <div class="profile1">
+        <img
+          src="https://yt3.googleusercontent.com/5qQCrMNyusTgiiRs9O-vepgggHbGW42kCxdt0yB1O5797FFjA9c6oleAV0b2t1DV33HBpsPZxw=s176-c-k-c0x00ffffff-no-rj"
+          alt="User 2" />
+        <h2>YTSchool</h2>
+        <p>Testing & debugging</p>
+      </div>
+      <!-- Add more profiles as needed -->
     </div>
-    <footer class="text-center py-4">
-      <p>&copy; 2023 Kmax Mods. All rights reserved.</p>
-    </footer>
+  </div>
+  <footer class="text-center py-4">
+    <p>&copy; 2023 Kmax Mods. All rights reserved.</p>
+  </footer>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Script to initialize the carousel -->
-    <script>
-      // Initialize the carousel
-      var myCarousel = document.querySelector("#carouselExampleIndicators");
-      var carousel = new bootstrap.Carousel(myCarousel, {
-        interval: 5000, // Adjust the interval time in milliseconds (2000ms = 2 seconds)
-        wrap: true, // Set to true if you want the carousel to loop
-      });
-    </script>
+  <!-- Script to initialize the carousel -->
+  <script>
+    // Initialize the carousel
+    var myCarousel = document.querySelector("#carouselExampleIndicators");
+    var carousel = new bootstrap.Carousel(myCarousel, {
+      interval: 5000, // Adjust the interval time in milliseconds (2000ms = 2 seconds)
+      wrap: true, // Set to true if you want the carousel to loop
+    });
+  </script>
 
-    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
 
-    <script>
-      // Firebase Configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
-        authDomain: "mod-store-8bce7.firebaseapp.com",
-        databaseURL:
-          "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "mod-store-8bce7",
-        storageBucket: "mod-store-8bce7.appspot.com",
-        messagingSenderId: "671264986944",
-        appId: "1:671264986944:web:47377a33cb39432d5acca5",
-        measurementId: "G-MKWHRDQRPM",
-      };
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
+      authDomain: "mod-store-8bce7.firebaseapp.com",
+      databaseURL:
+        "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "mod-store-8bce7",
+      storageBucket: "mod-store-8bce7.appspot.com",
+      messagingSenderId: "671264986944",
+      appId: "1:671264986944:web:47377a33cb39432d5acca5",
+      measurementId: "G-MKWHRDQRPM",
+    };
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const appCheck = firebase.appCheck();
-      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
-      const db = firebase.database();
-      const modsRef = db.ref("mods");
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const appCheck = firebase.appCheck();
+    appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
+    const db = firebase.database();
+    const modsRef = db.ref("mods");
 
-      // Function to display loading animation
-      function showLoadingAnimation() {
-        var loadingDiv = document.createElement("div");
-        loadingDiv.className = "loading-animation";
-        loadingDiv.innerHTML = '<div class="spinner"></div>';
-        document.getElementById("mods-container").appendChild(loadingDiv);
+    // Function to display loading animation
+    function showLoadingAnimation() {
+      var loadingDiv = document.createElement("div");
+      loadingDiv.className = "loading-animation";
+      loadingDiv.innerHTML = '<div class="spinner"></div>';
+      document.getElementById("mods-container").appendChild(loadingDiv);
+    }
+
+    // Function to hide loading animation
+    function hideLoadingAnimation() {
+      var loadingDiv = document.querySelector(".loading-animation");
+      if (loadingDiv) {
+        loadingDiv.remove();
       }
+    }
 
-      // Function to hide loading animation
-      function hideLoadingAnimation() {
-        var loadingDiv = document.querySelector(".loading-animation");
-        if (loadingDiv) {
-          loadingDiv.remove();
-        }
-      }
+    // Function to load and display mods
+    function loadMods() {
+      showLoadingAnimation(); // Show loading animation before loading mods
 
-      // Function to load and display mods
-      function loadMods() {
-        showLoadingAnimation(); // Show loading animation before loading mods
+      modsRef.on("child_added", function (snapshot) {
+        var mod = snapshot.val();
+        var modId = snapshot.key;
+        var modDiv = document.createElement("div");
+        modDiv.className = "card animate__animated animate__fadeIn";
 
-        modsRef.on("child_added", function (snapshot) {
-          var mod = snapshot.val();
-          var modId = snapshot.key;
-          var modDiv = document.createElement("div");
-          modDiv.className = "card animate__animated animate__fadeIn";
-
-          // Check the mod status
-          if (mod.status === "disabled") {
-            modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
-            modDiv.innerHTML = `
+        // Check the mod status
+        if (mod.status === "disabled") {
+          modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
+          modDiv.innerHTML = `
             <div class="wow">
                     <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
                         <div class="d-flex" style="padding: 0.75rem;">
@@ -447,13 +474,13 @@
                     </a>
                 </div>
       `;
-            modDiv.onclick = function (event) {
-              event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
-              return false;
-            };
-          } else {
-            // For enabled mods
-            modDiv.innerHTML = `
+          modDiv.onclick = function (event) {
+            event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
+            return false;
+          };
+        } else {
+          // For enabled mods
+          modDiv.innerHTML = `
             <div class="wow">
                     <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
                         <div class="d-flex" style="padding: 0.75rem;">
@@ -481,28 +508,29 @@
                     </a>
                 </div>
       `;
-          }
+        }
 
-          document.getElementById("mods-container").appendChild(modDiv);
-        });
+        document.getElementById("mods-container").appendChild(modDiv);
+      });
 
-        modsRef.on("child_removed", function (snapshot) {
-          var modId = snapshot.key;
-          var modDiv = document.getElementById(modId);
-          if (modDiv) {
-            modDiv.remove();
-          }
-        });
+      modsRef.on("child_removed", function (snapshot) {
+        var modId = snapshot.key;
+        var modDiv = document.getElementById(modId);
+        if (modDiv) {
+          modDiv.remove();
+        }
+      });
 
-        // Hide loading animation after mods are loaded
-        modsRef.once("value", function (snapshot) {
-          hideLoadingAnimation();
-        });
-      }
+      // Hide loading animation after mods are loaded
+      modsRef.once("value", function (snapshot) {
+        hideLoadingAnimation();
+      });
+    }
 
-      // Call the function to load mods when the page loads
-      loadMods();
-      document.head.appendChild(style);
-    </script>
-  </body>
+    // Call the function to load mods when the page loads
+    loadMods();
+    document.head.appendChild(style);
+  </script>
+</body>
+
 </html>
