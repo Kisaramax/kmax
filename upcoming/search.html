@@ -19,30 +19,31 @@
     <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
     <style>
       body {
-      font-family: "Arial", sans-serif;
-      animation: colorChange 5s ease-in-out infinite alternate;
-      background: radial-gradient(circle,
+        font-family: "Arial", sans-serif;
+        animation: colorChange 5s ease-in-out infinite alternate;
+        background: radial-gradient(
+          circle,
           rgb(97, 78, 245),
-          rgba(249, 161, 244, 0.404));
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-
-    @keyframes colorChange {
-      0% {
-        background-color: rgba(97, 78, 245, 0.8);
+          rgba(249, 161, 244, 0.404)
+        );
+        color: #333;
+        margin: 0;
+        padding: 0;
       }
 
-      50% {
-        background-color: rgba(249, 161, 244, 0.404);
-      }
+      @keyframes colorChange {
+        0% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
 
-      100% {
-        background-color: rgba(97, 78, 245, 0.8);
-      }
-    }
+        50% {
+          background-color: rgba(249, 161, 244, 0.404);
+        }
 
+        100% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+      }
 
       .container {
         background: rgba(255, 255, 255, 0.15);
@@ -81,8 +82,8 @@
         padding-right: 20px; /* Create space for the scrollbar */
       }
       #search-results::-webkit-scrollbar {
-  display: none;
-}
+        display: none;
+      }
 
       #search-button {
         margin-top: 10px;
@@ -134,13 +135,12 @@
         border-color: #0056b3;
         margin-top: 20px;
       }
-          /* Style for disabled card */
-          .disabled-card {
-    pointer-events: none; /* Disable clicking on the card */
-    background-color: #ccc; /* Tinted gray background */
-    opacity: 0.7; /* Adjust opacity to indicate disabled state */
-}
-
+      /* Style for disabled card */
+      .disabled-card {
+        pointer-events: none; /* Disable clicking on the card */
+        background-color: #ccc; /* Tinted gray background */
+        opacity: 0.7; /* Adjust opacity to indicate disabled state */
+      }
     </style>
   </head>
 
@@ -229,13 +229,21 @@
             if (mod.status === "disabled") {
               resultDiv.innerHTML = `
               <div class="wow">
-    <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post ${mod.status === 'disabled' ? 'disabled-card' : ''}" href="${mod.status === 'disabled' ? '#' : 'view.html?id=' + mod.id}" title="${mod.title}">
+    <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post ${
+      mod.status === "disabled" ? "disabled-card" : ""
+    }" href="${
+                mod.status === "disabled" ? "#" : "view.html?id=" + mod.id
+              }" title="${mod.title}">
         <div class="d-flex" style="padding: 0.75rem;">
             <div class="flex-shrink-0" style="width: 4rem; margin-right: 0.75rem;">
-                <img width="96" height="96" src="${mod.imageUrl}" class="rounded-lg wp-post-image" alt="${mod.title}" />
+                <img width="96" height="96" src="${
+                  mod.imageUrl
+                }" class="rounded-lg wp-post-image" alt="${mod.title}" />
             </div>
             <div style="min-width: 0;">
-                <h3 class="h6 font-weight-semibold text-truncate w-100 mb-1">${mod.title}</h3>
+                <h3 class="h6 font-weight-semibold text-truncate w-100 mb-1">${
+                  mod.title
+                }</h3>
                 <div class="small text-truncate text-muted">
                     <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                         <!-- SVG Path -->
@@ -315,6 +323,18 @@
         // If 'id' parameter exists, set its value to the search query input
         document.getElementById("search-query").value = idParameter;
       }
+      // Function to initiate search if URL contains 'id' parameter
+      function searchIfIdExistsInURL() {
+        var idParameter = getUrlParameter("id");
+        if (idParameter) {
+          // If 'id' parameter exists, trigger the search
+          document.getElementById("search-query").value = idParameter;
+          performSearch(idParameter); // Initiating the search with the 'id' parameter
+        }
+      }
+
+      // Check if 'id' parameter exists in the URL on page load
+      window.addEventListener("load", searchIfIdExistsInURL);
     </script>
   </body>
 </html>
