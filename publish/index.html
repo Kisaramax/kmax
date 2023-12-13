@@ -171,15 +171,6 @@
       // Get the currently authenticated user
       const user = firebase.auth().currentUser;
 
-      if (user) {
-        // User is signed in, you can get the user ID
-        const userId = user.uid;
-        console.log("User ID:", userId);
-      } else {
-        // No user is signed in
-        console.log("No user is signed in.");
-      }
-
       firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
           // Redirect to login page if the user is not logged in
@@ -255,8 +246,9 @@
           const imageUrl = document.getElementById("imageUrl").value;
           const main_image = document.getElementById("main_image").value;
           const id = document.getElementById("ids").value;
-          const editors_choice =
-            document.getElementById("editors_choice").value;
+          const editors_choice =document.getElementById("editors_choice").value;
+            
+          const userId = firebase.auth().currentUser.uid;
 
           // Create an object with mod information
           const newMod = {
