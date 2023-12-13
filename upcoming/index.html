@@ -280,9 +280,14 @@
             <a class="nav-link" href="dmca.html">DMCA</a>
           </li>
         </ul>
+        <form class="d-flex ms-auto" id="searchForm">
+          <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light" type="button" onclick="searchRedirect()">Search</button>
+        </form>
       </div>
     </div>
   </nav>
+  
 
   <!-- Glassmorphism Carousel Container with Padding -->
   <div id="carouselContainer" style="
@@ -531,6 +536,14 @@
 
     // Call the function to load mods when the page loads
     loadMods();
+
+    function searchRedirect() {
+  var searchQuery = document.getElementById("searchInput").value;
+  if (searchQuery.trim() !== "") {
+    window.location.href = "search.html?id=" + encodeURIComponent(searchQuery);
+  }
+}
+
 
     document.head.appendChild(style);
   </script>
