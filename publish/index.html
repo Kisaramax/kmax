@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="style.min.css" />
     <link rel="stylesheet" href="style2.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <style>
     /* Dark Mode Styles */
@@ -98,6 +99,13 @@
           <select class="form-select" id="status">
             <option value="disabled">Disabled</option>
             <option value="active">Active</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="editors_choice" class="form-label">Editor's Choice</label>
+          <select class="form-select" id="editors_choice">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary mr-2" id="addModButton">
@@ -237,6 +245,7 @@
           const imageUrl = document.getElementById("imageUrl").value;
           const main_image = document.getElementById("main_image").value;
           const id = document.getElementById("ids").value;
+          const editors_choice = document.getElementById("editors_choice").value;
 
           // Create an object with mod information
           const newMod = {
@@ -258,6 +267,7 @@
             main_image: main_image,
             id: id,
             timestamp: now,
+            editors_choice: editors_choice,
             // Add other properties as needed
           };
 
@@ -332,6 +342,7 @@
             document.getElementById("ids").value = mod.id || "";
             document.getElementById("imageUrl").value = mod.imageUrl || "";
             document.getElementById("main_image").value = mod.main_image || "";
+            document.getElementById("editors_choice").value = mod.editors_choice || "";
           }
         });
       }
