@@ -95,8 +95,8 @@
         <div class="mb-3">
           <label for="status" class="form-label">Available Status</label>
           <select class="form-select" id="status">
-            <option value="disabled">Disabled</option>
             <option value="active">Active</option>
+            <option value="disabled">Disabled</option>
           </select>
         </div>
         <div class="mb-3">
@@ -170,6 +170,18 @@
       const now = Date.now();
       // Get the currently authenticated user
       const user = firebase.auth().currentUser;
+
+      // Listen for changes in authentication state
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // User is signed in, you can get the user ID
+          const userId = user.uid;
+          console.log(`Signed in as ${userId}`);
+        } else {
+          // No user is signed in
+          console.log("No user is signed in.");
+        }
+      });
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
@@ -247,8 +259,8 @@
           const main_image = document.getElementById("main_image").value;
           const id = document.getElementById("ids").value;
           const editors_choice =document.getElementById("editors_choice").value;
-            
           const userId = firebase.auth().currentUser.uid;
+
 
           // Create an object with mod information
           const newMod = {
@@ -271,7 +283,7 @@
             id: id,
             timestamp: now,
             editors_choice: editors_choice,
-            by: userId,
+            by : userId,
             // Add other properties as needed
           };
 
@@ -292,9 +304,9 @@
             .then(function () {
               // Mod added/updated successfully
               alert("Mod added/updated successfully!");
-              window.location.replace("index.html");
               // Clear the form fields
               document.getElementById("addModForm").reset();
+              window.location.replace("index.html");
             })
             .catch(function (error) {
               // Handle errors if any
