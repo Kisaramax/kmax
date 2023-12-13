@@ -219,7 +219,7 @@
           // Display the sorted mods as search results
           sortedMods.forEach(function (mod) {
             var resultDiv = document.createElement("div");
-            resultDiv.className = "blog-post animate__animated animate__fadeIn";
+            resultDiv.className = "blog-post";
             // Check if the mod status is "disabled"
             if (mod.status === "disabled") {
               resultDiv.innerHTML = `
@@ -287,7 +287,7 @@
                             </div>
                         </div>
                     </a>
-                </div
+                </div>
     `;
             }
             searchResultsDiv.appendChild(resultDiv);
