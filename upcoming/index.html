@@ -530,14 +530,14 @@
         showLoadingAnimation(); // Show loading animation before loading mods
 
         // Load mods ordered by timestamp (newest first)
-        modsRef.orderByChild("timestamp").on("value", function (snapshot) {
-          document.getElementById("mods-container").innerHTML = ""; // Clear previous mods
+        modsRef
+          .orderByChild("timestamp")
+          .limitToLast(15)
+          .on("value", function (snapshot) {
+            document.getElementById("mods-container").innerHTML = ""; // Clear previous mods
 
-          var modDivs = [];
-
-          snapshot.forEach(function (childSnapshot) {
-            var mod = childSnapshot.val();
-            var modId = childSnapshot.key;
+            var modDivs = [];
+            var count = 0; // Initialize counter
 
             snapshot.forEach(function (childSnapshot) {
               if (count >= 15) return; // Exit loop if already reached the limit
