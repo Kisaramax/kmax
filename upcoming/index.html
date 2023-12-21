@@ -272,6 +272,12 @@
           /* Adjusted height for smaller screens */
         }
       }
+      .small-image {
+        width: 20px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+        margin-left: 10px; /* Adjust the margin for proper spacing */
+        /* Any additional styling you need */
+      }
     </style>
   </head>
 
@@ -391,8 +397,18 @@
     </div>
 
     <div class="container-main" id="editors-choice-main">
-      <h2 class="section-title" style="margin-bottom: 0">Editor's Choice</h2>
-      <div class="container" id="editors-choice-container" style="margin-top: 0"></div>
+      <h2 class="section-title" style="margin-bottom: 0">
+        Editor's Choice
+        <img
+          src="https://i.ibb.co/gwZSqH9/check-mark.png"
+          class="small-image"
+        />
+      </h2>
+      <div
+        class="container"
+        id="editors-choice-container"
+        style="margin-top: 0"
+      ></div>
     </div>
     <div class="container-main" id="mods-container-main">
       <h2 class="section-title" style="margin-bottom: 0">Recent Mods</h2>
@@ -490,13 +506,15 @@
           loadingDiv.remove();
         }
       }
-      
-            // Function to display loading animation
-            function showLoadingAnimation2() {
+
+      // Function to display loading animation
+      function showLoadingAnimation2() {
         var loadingDiv = document.createElement("div");
         loadingDiv.className = "loading-animation";
         loadingDiv.innerHTML = '<div class="spinner"></div>';
-        document.getElementById("editors-choice-container").appendChild(loadingDiv);
+        document
+          .getElementById("editors-choice-container")
+          .appendChild(loadingDiv);
       }
 
       // Function to hide loading animation
