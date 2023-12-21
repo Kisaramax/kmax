@@ -539,15 +539,19 @@
             var mod = childSnapshot.val();
             var modId = childSnapshot.key;
 
-            var modDiv = document.createElement("div");
-            modDiv.id = modId; // Set the ID for the div to the modId
+            snapshot.forEach(function (childSnapshot) {
+              if (count >= 15) return; // Exit loop if already reached the limit
+              var mod = childSnapshot.val();
+              var modId = childSnapshot.key;
 
-            modDiv.className = "card animate__animated animate__fadeIn";
+              var modDiv = document.createElement("div");
+              modDiv.id = modId; // Set the ID for the div to the modId
+              modDiv.className = "card animate__animated animate__fadeIn";
 
-            // Check the mod status
-            if (mod.status === "disabled") {
-              modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
-              modDiv.innerHTML = `
+              // Check the mod status
+              if (mod.status === "disabled") {
+                modDiv.classList.add("disabled-card"); // Add a class for styling disabled cards
+                modDiv.innerHTML = `
             <div class="wow">
                     <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
                         <div class="d-flex" style="padding: 0.75rem;">
@@ -575,13 +579,13 @@
                     </a>
                 </div>
       `;
-              modDiv.onclick = function (event) {
-                event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
-                return false;
-              };
-            } else {
-              // For enabled mods
-              modDiv.innerHTML = `
+                modDiv.onclick = function (event) {
+                  event.preventDefault(); // Prevent default behavior (e.g., navigating to view.html)
+                  return false;
+                };
+              } else {
+                // For enabled mods
+                modDiv.innerHTML = `
             <div class="wow">
                     <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
                         <div class="d-flex" style="padding: 0.75rem;">
@@ -609,28 +613,29 @@
                     </a>
                 </div>
       `;
-            }
-            modDivs.push(modDiv); // Push each modDiv to the array
-          });
+              }
+              modDivs.push(modDiv); // Push each modDiv to the array
+              count++; // Increment counter
+            });
 
-          // Reverse the order of modDivs
-          modDivs.reverse().forEach(function (modDiv) {
-            document.getElementById("mods-container").appendChild(modDiv);
-          });
+            // Reverse the order of modDivs
+            modDivs.reverse().forEach(function (modDiv) {
+              document.getElementById("mods-container").appendChild(modDiv);
+            });
 
-          modsRef.on("child_removed", function (snapshot) {
-            var modId = snapshot.key;
-            var modDiv = document.getElementById(modId);
-            if (modDiv) {
-              modDiv.remove();
-            }
-          });
+            modsRef.on("child_removed", function (snapshot) {
+              var modId = snapshot.key;
+              var modDiv = document.getElementById(modId);
+              if (modDiv) {
+                modDiv.remove();
+              }
+            });
 
-          // Hide loading animation after mods are loaded
-          modsRef.once("value", function (snapshot) {
-            hideLoadingAnimation();
+            // Hide loading animation after mods are loaded
+            modsRef.once("value", function (snapshot) {
+              hideLoadingAnimation();
+            });
           });
-        });
       }
 
       // Call the function to load mods when the page loads
