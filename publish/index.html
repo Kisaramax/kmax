@@ -258,9 +258,12 @@
           const imageUrl = document.getElementById("imageUrl").value;
           const main_image = document.getElementById("main_image").value;
           const id = document.getElementById("ids").value;
-          const editors_choice =document.getElementById("editors_choice").value;
           const userId = firebase.auth().currentUser.uid;
-
+          const editorsChoiceSelect = document.getElementById("editors_choice");
+          const editorsChoiceValue =
+            editorsChoiceSelect.options[editorsChoiceSelect.selectedIndex]
+              .value;
+          const editorsChoiceBoolean = editorsChoiceValue === "true";
 
           // Create an object with mod information
           const newMod = {
@@ -282,8 +285,8 @@
             main_image: main_image,
             id: id,
             timestamp: now,
-            editors_choice: editors_choice,
-            by : userId,
+            editors_choice: editorsChoiceBoolean,
+            by: userId,
             // Add other properties as needed
           };
 
@@ -359,8 +362,13 @@
             document.getElementById("ids").value = mod.id || "";
             document.getElementById("imageUrl").value = mod.imageUrl || "";
             document.getElementById("main_image").value = mod.main_image || "";
-            document.getElementById("editors_choice").value =
-              mod.editors_choice || "";
+            const editorsChoiceSelect =
+              document.getElementById("editors_choice");
+            if (mod.editors_choice) {
+              editorsChoiceSelect.value = "true";
+            } else {
+              editorsChoiceSelect.value = "false";
+            }
           }
         });
       }
