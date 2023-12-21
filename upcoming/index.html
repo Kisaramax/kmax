@@ -392,11 +392,7 @@
 
     <div class="container-main" id="editors-choice-main">
       <h2 class="section-title" style="margin-bottom: 0">Editor's Choice</h2>
-      <div
-        class="container"
-        id="editors-choice-container"
-        style="margin-top: 0"
-      ></div>
+      <div class="container" id="editors-choice-container" style="margin-top: 0"></div>
     </div>
     <div class="container-main" id="mods-container-main">
       <h2 class="section-title" style="margin-bottom: 0">Recent Mods</h2>
@@ -489,6 +485,22 @@
 
       // Function to hide loading animation
       function hideLoadingAnimation() {
+        var loadingDiv = document.querySelector(".loading-animation");
+        if (loadingDiv) {
+          loadingDiv.remove();
+        }
+      }
+      
+            // Function to display loading animation
+            function showLoadingAnimation2() {
+        var loadingDiv = document.createElement("div");
+        loadingDiv.className = "loading-animation";
+        loadingDiv.innerHTML = '<div class="spinner"></div>';
+        document.getElementById("editors-choice-container").appendChild(loadingDiv);
+      }
+
+      // Function to hide loading animation
+      function hideLoadingAnimation2() {
         var loadingDiv = document.querySelector(".loading-animation");
         if (loadingDiv) {
           loadingDiv.remove();
@@ -606,9 +618,9 @@
       // Call the function to load mods when the page loads
       loadMods();
 
-      // Function to load and display mods
+      // Function to load and display editor's choice
       function loadEditorsChoiceMods() {
-        showLoadingAnimation(); // Show loading animation before loading mods
+        showLoadingAnimation2(); // Show loading animation before loading mods
 
         // Load mods ordered by timestamp (newest first)
         modsRef
@@ -714,7 +726,7 @@
 
             // Hide loading animation after mods are loaded
             modsRef.once("value", function (snapshot) {
-              hideLoadingAnimation();
+              hideLoadingAnimation2();
             });
           });
       }
