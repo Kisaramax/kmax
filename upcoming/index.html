@@ -56,7 +56,7 @@
         font-weight: bold;
       }
 
-      .container {
+      .container-main {
         max-width: 1200px;
         width: 90%;
         margin: 80px auto 0;
@@ -72,14 +72,24 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       }
 
-      .container {
+      .container-main {
         position: relative;
         /* Ensures the cards are positioned relative to this container */
       }
 
-      #mods-container {
+      #mods-container-main {
         padding-top: 10px;
         /* Provide space for the title to be displayed above the cards */
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .container {
+        position: relative;
+        /* Ensures the cards are positioned relative to this container */
       }
 
       /* Update card styles */
@@ -379,11 +389,12 @@
       </div>
     </div>
 
-    <div class="container" id="">
-      <h2 class="section-title">Recent Mods</h2>
+    <div class="container-main" id="">
+      <h2 class="section-title">Editor's Choice</h2>
     </div>
-    <div class="container" id="mods-container">
+    <div class="container-main" id="mods-container-main">
       <h2 class="section-title">Recent Mods</h2>
+      <div class="container" id="mods-container"></div>
     </div>
 
     <div class="glass-container1" id="about">
