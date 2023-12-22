@@ -7,6 +7,150 @@
     <title>Mod Info</title>
     <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
+ <script>
+      // Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
+        authDomain: "mod-store-8bce7.firebaseapp.com",
+        databaseURL:
+          "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mod-store-8bce7",
+        storageBucket: "mod-store-8bce7.appspot.com",
+        messagingSenderId: "671264986944",
+        appId: "1:671264986944:web:47377a33cb39432d5acca5",
+        measurementId: "G-MKWHRDQRPM",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const appCheck = firebase.appCheck();
+      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
+      const db = firebase.database();
+      const modsRef = db.ref("mods");
+
+      // Function to load and display a specific mod based on the ID from URL
+      function loadModById(id) {
+        modsRef.once("value", function (snapshot) {
+          var mods = snapshot.val();
+          if (mods && mods[id]) {
+            var mod = mods[id];
+            var modDiv = document.createElement("div");
+            modDiv.className = "new";
+            modDiv.innerHTML = `
+<div class="text-center" id="wow">
+        <img
+          class="main-image img-fluid"
+          src="${mod.main_image}"
+          alt="Main Image Description"
+        />
+      </div>
+
+      <!-- Table with Glassmorphism Effect -->
+      <div class="glass-table">
+        <table class="table table-borderless vertical-table">
+          <!-- Sample data, replace with actual mod info -->
+          <tbody>
+            <tr>
+              <th>App Name</th>
+              <td>${mod.title}</td>
+            </tr>
+            <tr>
+              <th>Publisher</th>
+              <td>${mod.publisher}</td>
+            </tr>
+            <tr>
+              <th>Genre</th>
+              <td>${mod.genre}</td>
+            </tr>
+            <tr>
+              <th>Size</th>
+              <td>${mod.size}</td>
+            </tr>
+            <tr>
+              <th>Version</th>
+              <td>${mod.version}</td>
+            </tr>
+            <tr>
+              <th>MOD Info</th>
+              <td>${mod.modInfo}</td>
+            </tr>
+            <!-- You can add more rows with mod info here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Download Button -->
+      <div class="text-center mt-4">
+  <a href="${mod.downloadLink}" target="_blank" class="btn btn-primary btn-lg">Download</a>
+</div>
+
+
+      <!-- Small Paragraph -->
+      <div class="glass-table p-4 mt-4">
+        <p>${mod.paragraph1}</p>
+      </div>
+
+      <!-- Another Image -->
+      <div class="glass-table mt-4 text-center" id="sub-image1">
+        <img
+          class="sub-image img-fluid"
+          src="${mod.sub_image_1}"
+          alt="Sub Image 1 Description"
+        />
+      </div>
+      <!-- Another Small Paragraph -->
+      <div class="glass-table p-4 mt-4">
+        <p>${mod.paragraph2}</p>
+      </div>
+
+      <!-- Another Image -->
+      <div class="glass-table mt-4 text-center" id="sub-image2">
+        <img
+          class="sub-image img-fluid"
+          src="${mod.sub_image_2}"
+          alt="Sub Image 2 Description"
+        />
+      </div>
+
+      <!-- Another Small Paragraph -->
+      <div class="glass-table p-4 mt-4">
+        <p>${mod.paragraph3}</p>
+      </div>
+
+      <!-- Second Download Button -->
+      <div class="text-center mt-4">
+  <a href="${mod.downloadLink}" target="_blank" class="btn btn-primary btn-lg">Download</a>
+</div>
+
+
+            
+            `;
+            document.getElementById("mods-container").appendChild(modDiv);
+          } else {
+            // Redirect to 404.html if the mod with the specified ID doesn't exist
+            window.location.href = "404.html";
+          }
+
+          hideLoadingAnimation(); // Hide loading animation
+        });
+      }
+
+      // Get the 'id' parameter from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+
+      // Load mod based on the ID from URL
+      if (id) {
+        loadModById(id);
+      } else {
+        // Redirect to 404.html if 'id' parameter is missing
+        window.location.href = "404.html";
+      }
+    </script>
+
+
     <style>
       body {
         font-family: "Arial", sans-serif;
@@ -203,145 +347,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
 
-    <script>
-      // Firebase Configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
-        authDomain: "mod-store-8bce7.firebaseapp.com",
-        databaseURL:
-          "https://mod-store-8bce7-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "mod-store-8bce7",
-        storageBucket: "mod-store-8bce7.appspot.com",
-        messagingSenderId: "671264986944",
-        appId: "1:671264986944:web:47377a33cb39432d5acca5",
-        measurementId: "G-MKWHRDQRPM",
-      };
-
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const appCheck = firebase.appCheck();
-      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
-      const db = firebase.database();
-      const modsRef = db.ref("mods");
-
-      // Function to load and display a specific mod based on the ID from URL
-      function loadModById(id) {
-        modsRef.once("value", function (snapshot) {
-          var mods = snapshot.val();
-          if (mods && mods[id]) {
-            var mod = mods[id];
-            var modDiv = document.createElement("div");
-            modDiv.className = "new";
-            modDiv.innerHTML = `
-<div class="text-center" id="wow">
-        <img
-          class="main-image img-fluid"
-          src="${mod.main_image}"
-          alt="Main Image Description"
-        />
-      </div>
-
-      <!-- Table with Glassmorphism Effect -->
-      <div class="glass-table">
-        <table class="table table-borderless vertical-table">
-          <!-- Sample data, replace with actual mod info -->
-          <tbody>
-            <tr>
-              <th>App Name</th>
-              <td>${mod.title}</td>
-            </tr>
-            <tr>
-              <th>Publisher</th>
-              <td>${mod.publisher}</td>
-            </tr>
-            <tr>
-              <th>Genre</th>
-              <td>${mod.genre}</td>
-            </tr>
-            <tr>
-              <th>Size</th>
-              <td>${mod.size}</td>
-            </tr>
-            <tr>
-              <th>Version</th>
-              <td>${mod.version}</td>
-            </tr>
-            <tr>
-              <th>MOD Info</th>
-              <td>${mod.modInfo}</td>
-            </tr>
-            <!-- You can add more rows with mod info here -->
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Download Button -->
-      <div class="text-center mt-4">
-  <a href="${mod.downloadLink}" target="_blank" class="btn btn-primary btn-lg">Download</a>
-</div>
-
-
-      <!-- Small Paragraph -->
-      <div class="glass-table p-4 mt-4">
-        <p>${mod.paragraph1}</p>
-      </div>
-
-      <!-- Another Image -->
-      <div class="glass-table mt-4 text-center" id="sub-image1">
-        <img
-          class="sub-image img-fluid"
-          src="${mod.sub_image_1}"
-          alt="Sub Image 1 Description"
-        />
-      </div>
-      <!-- Another Small Paragraph -->
-      <div class="glass-table p-4 mt-4">
-        <p>${mod.paragraph2}</p>
-      </div>
-
-      <!-- Another Image -->
-      <div class="glass-table mt-4 text-center" id="sub-image2">
-        <img
-          class="sub-image img-fluid"
-          src="${mod.sub_image_2}"
-          alt="Sub Image 2 Description"
-        />
-      </div>
-
-      <!-- Another Small Paragraph -->
-      <div class="glass-table p-4 mt-4">
-        <p>${mod.paragraph3}</p>
-      </div>
-
-      <!-- Second Download Button -->
-      <div class="text-center mt-4">
-  <a href="${mod.downloadLink}" target="_blank" class="btn btn-primary btn-lg">Download</a>
-</div>
-
-
-            
-            `;
-            document.getElementById("mods-container").appendChild(modDiv);
-          } else {
-            // Redirect to 404.html if the mod with the specified ID doesn't exist
-            window.location.href = "404.html";
-          }
-
-          hideLoadingAnimation(); // Hide loading animation
-        });
-      }
-
-      // Get the 'id' parameter from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get("id");
-
-      // Load mod based on the ID from URL
-      if (id) {
-        loadModById(id);
-      } else {
-        // Redirect to 404.html if 'id' parameter is missing
-        window.location.href = "404.html";
-      }
-    </script>
+   
   </body>
 </html>
