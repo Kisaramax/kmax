@@ -11,173 +11,250 @@
     <title>Kmax Mods Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css"> <!-- Your custom CSS file -->
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css"> <!-- Your custom CSS file -->
     <link rel="stylesheet" href="./dark-mode.css"> <!-- Dark mode CSS -->
     <meta property="og:title" content="Kmax Mods">
     <meta property="og:description" content="Best Mods For Asphalt Gamers">
     <meta property="og:image" content="https://i.ibb.co/k9LFPpX/Picsart-23-03-18-12-53-06-524.jpg">
     <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png"/>
-</head>
-<body class="bg-white dark:bg-gray-900 text-black dark:text-white">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Kmax Mods</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#tab-mods">MODS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#tab-upload">UPLOAD YOUR MODS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#tab-contact">CONTACT US</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">BLOG</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
-
-<!-- Add a responsive navigation menu for mobile -->
-<div class="lg:hidden" id="sideMenu" style="display: none;">
-    <div class="container mx-auto">
-        <div class="block bg-gray-800 text-white py-4">
-            <a href="#tab-mods" class="block py-2">MODS</a>
-            <a href="#tab-upload" class="block py-2">UPLOAD YOUR MODS</a>
-            <a href="#tab-contact" class="block py-2">CONTACT US</a>
-        </div>
-    </div>
-</div>
-
-<div>
-    <section class="bg-gray-100 dark:bg-gray-800 py-12" id="tab-mods">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold text-center">MODS</h1>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg flex flex-col items-center">
-                    <img src="https://i.ibb.co/VYT0PnV/garena-free-fire.png" class="w-1/2 mx-auto mt-4" alt="Free Fire">
-                    <div class="p-4 text-center">
-                        <h2 class="text-xl font-semibold mb-4">Free Fire</h2>
-                        <a href="#" class="btn btn-primary" enabled="false">View Mod</a>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg flex flex-col items-center">
-                    <img src="https://i.ibb.co/4Y3kbJQ/Picsart-23-10-02-18-23-43-022.jpg" class="w-1/2 mx-auto mt-4" alt="Asphalt 8 Logo">
-                    <div class="p-4 text-center">
-                        <h2 class="text-xl font-semibold mb-4">Asphalt 8 - Car Racing Game</h2>
-                        <p>Version 7.5.0i</p>
-                        <a href="https://sub4unlock.io/C17bn" class="btn btn-primary">Download</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<section class="bg-gray-100 dark:bg-gray-800 py-12" id="tab-upload">
-    <div class="container mx-auto">
-        <h1 class="text-3xl font-bold text-center">Upload Mods</h1>
-        <div class="max-w-lg mx-auto mt-8 p-6 rounded-lg bg-white dark:bg-gray-700 shadow-lg">
-            <form action="upload_handler.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
-                <div class="mb-4">
-                    <label for="modName" class="block text-lg font-semibold">Mod Name:</label>
-                    <input type="text" id="modName" name="modName" class="border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" required>
-                </div>
-                <div class="mb-4">
-                    <label for="modFile" class="block text-lg font-semibold">Mod File (APK Only):</label>
-                    <input type="file" id="modFile" name="modFile" accept=".apk" class="border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" required>
-                </div>
-                <div class="mb-4">
-                    <button type="submit" class="bg-blue-500 hover.bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                        Upload Mod
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-
-<script>
-function validateForm() {
-    var fileInput = document.getElementById("modFile");
-    var filePath = fileInput.value;
-    var allowedExtensions = /(\.apk)$/i;
-
-    if (!allowedExtensions.exec(filePath)) {
-        alert("Please upload a file with the .apk extension.");
-        return false;
-    }
-    return true;
-}
-</script>
-
-
-<section class="bg-gray-100 dark:bg-gray-800 py-12" id="tab-contact">
-    <div class="container mx-auto">
-        <div class="bg-white dark:bg-gray-700 max-w-sm mx-auto rounded-lg shadow-lg p-4 text-center">
-            <img src="https://i.ibb.co/61K5q2F/Picsart-23-03-18-12-53-06-524.jpg" alt="Kmax Gaming Logo" class="w-full">
-            <p class="text-xl font-semibold">Kmax</p>
-            <p class="text-lg">YouTuber(Kmax Gaming)</p>
-            <p class="text-lg">First Year In PCJT</p>
-            <p class="text-lg">Age: 17</p>
-            <div class="mt-6 space-x-4">
-                <a href="https://www.youtube.com/@Kmax21" class="btn btn-danger">
-                    <i class="fab fa-youtube"></i> Visit YouTube
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="bg-gray-100 dark:bg-gray-800 py-12" id="tab-comments">
-    <div class="container mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-8">Comments</h1>
-        <div class="max-w-lg mx-auto mt-4">
-            <div class="mb-4">
-                <label for="comment" class="block text-lg font-semibold mb-2">Leave a Comment:</label>
-                <textarea id="comment" name="comment" class="form-textarea border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" rows="4" required></textarea>
-            </div>
-            <div class="mb-4">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                    Post Comment
-                </button>
-            </div>
-        </div>
-        <div class="max-w-lg mx-auto mt-8">
-            <div class="mb-4 p-4 bg-white dark:bg-gray-700 rounded-lg shadow-lg">
-                <div class="text-lg font-semibold mb-2">User 1:</div>
-                <p class="text-gray-700">This is a great mod! I love it.</p>
-            </div>
-            <div class="mb-4 p-4 bg-white dark:bg-gray-700 rounded-lg shadow-lg">
-                <div class="text-lg font-semibold mb-2">User 2:</div>
-                <p class="text-gray-700">I love your mods. Keep up the good work!</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<script>
-    function toggleMenu() {
-        var menu = document.getElementById("sideMenu");
-        if (menu.style.display === "block") {
-            menu.style.display = "none";
-        } else {
-            menu.style.display = "block";
+    <!-- Glassmorphism-like effect styles -->
+    <style>
+        /* Apply glassmorphism-like effect to sections */
+        .glassmorphism {
+            background: rgba(181, 113, 113, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            margin: 20px;
+            padding: 20px;
         }
+                /* Keyframes for color-changing animation */
+                @keyframes changeBackgroundColor {
+            0% { background-color: #f5acff; } /* Start color */
+            50% { background-color: #92c7f3; } /* Middle color */
+            100% { background-color: #feacac; } /* End color */
+        }
+
+        /* Apply the animation to the body */
+        body {
+            animation: changeBackgroundColor 10s infinite; /* 10s duration, infinite loop */
+        }
+    .snowflake {
+        position: fixed;
+        color: #fff; /* Color of the snowflake */
+        pointer-events: none; /* Allows clicks to go through the snowflakes */
     }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Kmax Mods</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab-mods">MODS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab-upload">UPLOAD YOUR MODS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab-contact">CONTACT US</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">BLOG</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add a responsive navigation menu for mobile -->
+    <div class="lg:hidden" id="sideMenu" style="display: none;">
+        <div class="container mx-auto">
+            <div class="block ">
+                <a href="#tab-mods" class="block py-2">MODS</a>
+                <a href="#tab-upload" class="block py-2">UPLOAD YOUR MODS</a>
+                <a href="#tab-contact" class="block py-2">CONTACT US</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="glassmorphism">
+        <!-- Countdown section -->
+        <div class="countdown">
+            <div><h3>Ui Refresh In</h3></div>
+            <div id="countdown"></div>
+          </div>
+        </div>
+    </div>
+
+    <div class="glassmorphism">
+        <!-- MODS section -->
+        <section class="" id="tab-mods">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold text-center">MODS</h1>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg flex flex-col items-center">
+                        <img src="https://i.ibb.co/VYT0PnV/garena-free-fire.png" class="w-1/2 mx-auto mt-4" alt="Free Fire">
+                        <div class="p-4 text-center">
+                            <h2 class="text-xl font-semibold mb-4">Free Fire</h2>
+                            <a href="#" class="btn btn-primary" enabled="false">View Mod</a>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg flex flex-col items-center">
+                        <img src="https://i.ibb.co/4Y3kbJQ/Picsart-23-10-02-18-23-43-022.jpg" class="w-1/2 mx-auto mt-4" alt="Asphalt 8 Logo">
+                        <div class="p-4 text-center">
+                            <h2 class="text-xl font-semibold mb-4">Asphalt 8 - Car Racing Game</h2>
+                            <p>Version 7.5.0i</p>
+                            <a href="https://sub4unlock.io/C17bn" class="btn btn-primary">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="glassmorphism">
+        <!-- Upload Mods section -->
+        <section class="" id="tab-upload">
+            <div class="container mx-auto">
+                <h1 class="text-3xl font-bold text-center">Upload Mods</h1>
+                <div class="max-w-lg mx-auto mt-8 p-6 rounded-lg bg-white dark:bg-gray-700 shadow-lg">
+                    <form action="upload_handler.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <div class="mb-4">
+                            <label for="modName" class="block text-lg font-semibold">Mod Name:</label>
+                            <input type="text" id="modName" name="modName" class="border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="modFile" class="block text-lg font-semibold">Mod File (APK Only):</label>
+                            <input type="file" id="modFile" name="modFile" accept=".apk" class="border-2 border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                            <button type="submit" class="bg-blue-500 hover.bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                                Upload Mod
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+<script>
+    function validateForm() {
+        var fileInput = document.getElementById("modFile");
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.apk)$/i;
+    
+        if (!allowedExtensions.exec(filePath)) {
+            alert("Please upload a file with the .apk extension.");
+            return false;
+        }
+        return true;
+    }
+    </script>
+
+    <div class="glassmorphism">
+        <!-- Contact Us section -->
+        <section class="" id="tab-contact">
+            <div class="container mx-auto">
+                <div class="bg-white dark:bg-gray-700 max-w-sm mx-auto rounded-lg shadow-lg p-4 text-center">
+                    <img src="https://i.ibb.co/61K5q2F/Picsart-23-03-18-12-53-06-524.jpg" alt="Kmax Gaming Logo" class="w-full">
+                    <p class="text-xl font-semibold">Kmax</p>
+                    <p class="text-lg">YouTuber(Kmax Gaming)</p>
+                    <p class="text-lg">First Year In PCJT</p>
+                    <p class="text-lg">Age: 17</p>
+                    <div class="mt-6 space-x-4">
+                        <a href="https://www.youtube.com/@Kmax21" class="btn btn-danger">
+                            <i class="fab fa-youtube"></i> Visit YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    </script>
+    
+    <script>
+    function updateCountdown() {
+      const targetDate = new Date('2024-01-01T00:00:00+05:30'); // Set the target date
+    
+      const now = new Date();
+      const difference = targetDate - now;
+    
+      if (difference <= 0) {
+        document.getElementById('countdown').innerHTML = 'Countdown expired';
+      } else {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    
+        document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+    }
+    
+    // Update countdown every second
+    setInterval(updateCountdown, 1000);
+    
+    // Initial call to display countdown immediately
+    updateCountdown();
+    
+    </script>
+    <!-- Snow effect script -->
+<script>
+    // Function to create a snowflake
+    function createSnowflake() {
+        const snowflake = document.createElement('i');
+        snowflake.classList.add('fas', 'fa-snowflake', 'snowflake');
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+        snowflake.style.opacity = Math.random();
+        snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+        snowflake.style.top = '-' + Math.random() * window.innerHeight + 'px'; // Start above the viewport
+
+        document.body.appendChild(snowflake);
+
+        setTimeout(() => {
+            snowflake.remove();
+        }, 5000);
+    }
+
+    // Function to initiate snowfall
+    function initiateSnowfall() {
+        setInterval(createSnowflake, 100);
+    }
+
+    // Initiate snowfall
+    window.onload = function () {
+        initiateSnowfall();
+    };
 </script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
