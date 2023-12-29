@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-4711764274538281" />
-    <title>Kmax Mods Home</title>
+    <title>Recent Mods</title>
     <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
     <!-- Bootstrap CSS -->
     <link
@@ -436,7 +436,7 @@
         // Load mods ordered by timestamp (newest first)
         modsRef
           .orderByChild("timestamp")
-          .limitToLast(15)
+          .limitToLast(500000)
           .on("value", function (snapshot) {
             document.getElementById("mods-container").innerHTML = ""; // Clear previous mods
 
@@ -444,7 +444,7 @@
             var count = 0; // Initialize counter
 
             snapshot.forEach(function (childSnapshot) {
-              if (count >= 15) return; // Exit loop if already reached the limit
+              if (count >= 500000) return; // Exit loop if already reached the limit
               var mod = childSnapshot.val();
               var modId = childSnapshot.key;
 
