@@ -68,7 +68,7 @@
         gap: 20px;
         padding: 20px;
         background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 15px;
+        border-radius: 7px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       }
 
@@ -91,6 +91,18 @@
       .container {
         position: relative;
         /* Ensures the cards are positioned relative to this container */
+      }
+      .view-all {
+        background-color: #ffffffc0;
+        border: none;
+        border-radius: 5px;
+        display: block;
+        width: 30%;
+        padding: 8px 0;
+        text-align: center;
+        color: #000000;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
       }
 
       /* Update card styles */
@@ -413,6 +425,7 @@
     <div class="container-main" id="mods-container-main">
       <h2 class="section-title" style="margin-bottom: 0">Recent Mods</h2>
       <div class="container" id="mods-container" style="margin-top: 0"></div>
+      <div class="view-all" id="view-all" onclick="view();"><h6>View All</h6></div>
     </div>
 
     <div class="glass-container1" id="about">
@@ -763,6 +776,10 @@
           window.location.href =
             "search.html?id=" + encodeURIComponent(searchQuery);
         }
+      }
+
+      function view(){
+        window.location.href ="recent.html";
       }
     </script>
   </body>
