@@ -399,12 +399,22 @@ function updateMetaTags(mod) {
 }
 
 // Function to load and update meta tags for a specific mod based on the ID from URL
-function loadMetaTagsById(id) {
+function loadMetaTagsById() {
+    // Extracting the ID from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    console.log("Extracted ID from URL:", id);
+
+    // Retrieving data from Firebase
     modsRef.once("value", function (snapshot) {
         try {
             var mods = snapshot.val();
             if (mods && mods[id]) {
                 var mod = mods[id];
+
+                console.log("Mod data from Firebase:", mod);
+
                 // Update meta tags and title
                 updateMetaTags(mod);
             } else {
@@ -415,16 +425,9 @@ function loadMetaTagsById(id) {
         }
     });
 }
-      // Get the 'id' parameter from URL
-      const urlParams2 = new URLSearchParams(window.location.search);
-      const id2 = urlParams.get("id");
 
-      // Load and update meta tags based on the ID from URL
-      if (id2) {
-        loadMetaTagsById(id2);
-      } else {
-        console.error("No ID found in URL");
-      }
+// Call the function when the page is loaded
+loadMetaTagsById();
     </script>
   </body>
 </html>
