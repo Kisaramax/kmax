@@ -3,13 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-adsense-account" content="ca-pub-4711764274538281">
+    <meta name="google-adsense-account" content="ca-pub-4711764274538281" />
     <title id="pageTitle">View mods</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Default OG Title" />
+    <meta property="og:description" content="Default OG Description" />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:image" content="https://example.com/default-image.jpg" />
+    <meta
+      property="article:published_time"
+      content="2023-12-11T05:35:48+00:00"
+    />
+    <meta name="keywords" content="default, keywords, here" />
     <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <style>
       body {
@@ -188,7 +198,6 @@
         </div>
       </div>
     </nav>
-    
 
     <!-- Main Banner Image -->
     <div id="mods-container"></div>
@@ -207,8 +216,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
 
-   
- <script>
+    <script>
       // Firebase Configuration
       const firebaseConfig = {
         apiKey: "AIzaSyAXQyIedd_BFHkZ7M8FSVyhdWeIM6kq8dU",
@@ -235,7 +243,7 @@
           var mods = snapshot.val();
           if (mods && mods[id]) {
             var mod = mods[id];
- document.getElementById('pageTitle').innerText = mod.title;
+            document.getElementById("pageTitle").innerText = mod.title;
             var modDiv = document.createElement("div");
             modDiv.className = "new";
             modDiv.innerHTML = `
@@ -347,6 +355,80 @@
       } else {
         // Redirect to 404.html if 'id' parameter is missing
         window.location.href = "404.html";
+      }
+      // Function to update meta tags
+      function updateMetaTags(mod) {
+         //timestamp in milliseconds
+        const timestamp = mod.timestamp;
+        //Recive Keywords From Realtime DB (This shit Not working💀)
+        const keywords = "mod apk, kmax mods, mods apk, kmax gaming, apk mod, mod app, mod games, kmaxmods.com, premium apk, hack apk, download mod apk, unlocked apk, mod menu, pro apk";
+
+        console.log(keywords);
+
+        const date = new Date(timestamp);
+        const now = date.toISOString();
+
+        document.title = mod.title; // Update page title
+
+        // Update meta tags for Open Graph (OG) properties
+        document
+          .querySelector('meta[property="og:title"]')
+          .setAttribute("content", mod.title);
+        document
+          .querySelector('meta[property="og:description"]')
+          .setAttribute("content", mod.paragraph1);
+        document
+          .querySelector('meta[property="og:url"]')
+          .setAttribute(
+            "content",
+            `https://kmaxmods.com/view.html?id=${mod.id}`
+          );
+        document
+          .querySelector('meta[property="og:image"]')
+          .setAttribute("content", mod.main_image);
+        document
+          .querySelector('meta[property="article:published_time"]')
+          .setAttribute("content", now);
+
+        // Get the keywords meta tag
+        const keywordsMetaTag = document.querySelector('meta[name="keywords"]');
+
+        // Check if the keywords meta tag exists
+        if (keywordsMetaTag) {
+          keywordsMetaTag.setAttribute("content", keywords); // Set the keywords string as the content attribute value
+        } else {
+          // If the keywords meta tag doesn't exist, create a new one
+          const newKeywordsMetaTag = document.createElement("meta");
+          newKeywordsMetaTag.setAttribute("name", "keywords");
+          newKeywordsMetaTag.setAttribute("content", keywords); // Set the keywords string as the content attribute value
+          document.head.appendChild(newKeywordsMetaTag);
+        }
+      }
+
+      // Function to load and update meta tags for a specific mod based on the ID from URL
+      function loadMetaTagsById(id) {
+        modsRef.once("value", function (snapshot) {
+          var mods = snapshot.val();
+          if (mods && mods[id]) {
+            var mod = mods[id];
+
+            // Update meta tags and title
+            updateMetaTags(mod);
+          } else {
+            console.error("Mod with ID " + id + " not found");
+          }
+        });
+      }
+
+      // Get the 'id' parameter from URL
+      const urlParams2 = new URLSearchParams(window.location.search);
+      const id2 = urlParams.get("id");
+
+      // Load and update meta tags based on the ID from URL
+      if (id2) {
+        loadMetaTagsById(id2);
+      } else {
+        console.error("No ID found in URL");
       }
     </script>
   </body>
