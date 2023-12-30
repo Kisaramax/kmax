@@ -356,14 +356,11 @@
         // Redirect to 404.html if 'id' parameter is missing
         window.location.href = "404.html";
       }
-      // Function to update meta tags
-      function updateMetaTags(mod) {
-         //timestamp in milliseconds
+   // Function to update meta tags
+function updateMetaTags(mod) {
+    try {
         const timestamp = mod.timestamp;
-        //Recive Keywords From Realtime DB (This shit Not working💀)
         const keywords = "mod apk, kmax mods, mods apk, kmax gaming, apk mod, mod app, mod games, kmaxmods.com, premium apk, hack apk, download mod apk, unlocked apk, mod menu, pro apk";
-
-        console.log(keywords);
 
         const date = new Date(timestamp);
         const now = date.toISOString();
@@ -371,55 +368,53 @@
         document.title = mod.title; // Update page title
 
         // Update meta tags for Open Graph (OG) properties
-        document
-          .querySelector('meta[property="og:title"]')
-          .setAttribute("content", mod.title);
-        document
-          .querySelector('meta[property="og:description"]')
-          .setAttribute("content", mod.paragraph1);
-        document
-          .querySelector('meta[property="og:url"]')
-          .setAttribute(
-            "content",
-            `https://kmaxmods.com/view.html?id=${mod.id}`
-          );
-        document
-          .querySelector('meta[property="og:image"]')
-          .setAttribute("content", mod.main_image);
-        document
-          .querySelector('meta[property="article:published_time"]')
-          .setAttribute("content", now);
+        const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+        const ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
+        const ogUrlMeta = document.querySelector('meta[property="og:url"]');
+        const ogImageMeta = document.querySelector('meta[property="og:image"]');
+        const ogPublishedTimeMeta = document.querySelector('meta[property="article:published_time"]');
+
+        if (ogTitleMeta) ogTitleMeta.setAttribute("content", mod.title);
+        if (ogDescriptionMeta) ogDescriptionMeta.setAttribute("content", mod.paragraph1);
+        if (ogUrlMeta) ogUrlMeta.setAttribute("content", `https://kmaxmods.com/view.html?id=${mod.id}`);
+        if (ogImageMeta) ogImageMeta.setAttribute("content", mod.main_image);
+        if (ogPublishedTimeMeta) ogPublishedTimeMeta.setAttribute("content", now);
 
         // Get the keywords meta tag
         const keywordsMetaTag = document.querySelector('meta[name="keywords"]');
 
         // Check if the keywords meta tag exists
         if (keywordsMetaTag) {
-          keywordsMetaTag.setAttribute("content", keywords); // Set the keywords string as the content attribute value
+            keywordsMetaTag.setAttribute("content", keywords);
         } else {
-          // If the keywords meta tag doesn't exist, create a new one
-          const newKeywordsMetaTag = document.createElement("meta");
-          newKeywordsMetaTag.setAttribute("name", "keywords");
-          newKeywordsMetaTag.setAttribute("content", keywords); // Set the keywords string as the content attribute value
-          document.head.appendChild(newKeywordsMetaTag);
+            // If the keywords meta tag doesn't exist, create a new one
+            const newKeywordsMetaTag = document.createElement("meta");
+            newKeywordsMetaTag.setAttribute("name", "keywords");
+            newKeywordsMetaTag.setAttribute("content", keywords);
+            document.head.appendChild(newKeywordsMetaTag);
         }
-      }
+    } catch (error) {
+        console.error("Error updating meta tags:", error);
+    }
+}
 
-      // Function to load and update meta tags for a specific mod based on the ID from URL
-      function loadMetaTagsById(id) {
-        modsRef.once("value", function (snapshot) {
-          var mods = snapshot.val();
-          if (mods && mods[id]) {
-            var mod = mods[id];
-
-            // Update meta tags and title
-            updateMetaTags(mod);
-          } else {
-            console.error("Mod with ID " + id + " not found");
-          }
-        });
-      }
-
+// Function to load and update meta tags for a specific mod based on the ID from URL
+function loadMetaTagsById(id) {
+    modsRef.once("value", function (snapshot) {
+        try {
+            var mods = snapshot.val();
+            if (mods && mods[id]) {
+                var mod = mods[id];
+                // Update meta tags and title
+                updateMetaTags(mod);
+            } else {
+                console.error("Mod with ID " + id + " not found");
+            }
+        } catch (error) {
+            console.error("Error loading meta tags:", error);
+        }
+    });
+}
       // Get the 'id' parameter from URL
       const urlParams2 = new URLSearchParams(window.location.search);
       const id2 = urlParams.get("id");
