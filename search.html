@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-adsense-account" content="ca-pub-4711764274538281" />
+    <title>Search</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.min.css" />
+    <link rel="stylesheet" href="style2.css" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="icon" href="https://i.ibb.co/SXS3ckB/20231003-050505.png" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        animation: colorChange 5s ease-in-out infinite alternate;
+        background: radial-gradient(
+          circle,
+          rgb(97, 78, 245),
+          rgba(249, 161, 244, 0.404)
+        );
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      @keyframes colorChange {
+        0% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+
+        50% {
+          background-color: rgba(249, 161, 244, 0.404);
+        }
+
+        100% {
+          background-color: rgba(97, 78, 245, 0.8);
+        }
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 10px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 96%;
+        min-height: 100vh;
+        max-width: 600px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 28px;
+        color: #000000;
+      }
+
+      #search-form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      #search-query {
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      #search-results {
+        margin-top: 20px; /* Add space between the search form and results */
+        overflow: auto; /* Enable scrolling if content exceeds container height */
+        max-height: 500px; /* Adjust the maximum height as needed */
+      }
+      #search-results::-webkit-scrollbar {
+        display: none;
+      }
+
+      #search-button {
+        margin-top: 10px;
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+
+      .blog-post {
+        width: 100%;
+        margin-top: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .blog-post a {
+        text-decoration: none;
+        /* Remove underlines */
+      }
+
+      .blog-post h3 {
+        color: #000000;
+      }
+
+      .blog-post p {
+        color: #fff;
+      }
+
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        margin-top: 10px;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        margin-top: 20px;
+      }
+      /* Style for disabled card */
+      .disabled-card {
+        pointer-events: none; /* Disable clicking on the card */
+        background-color: #ccc; /* Tinted gray background */
+        opacity: 0.7; /* Adjust opacity to indicate disabled state */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="header animate__animated animate__fadeIn">Search</h1>
+      <form id="search-form">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            id="search-query"
+            class="form-control"
+            placeholder="Enter keywords for search"
+          />
+          <button type="button" id="search-button" class="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </form>
+
+      <!-- Display Search Results Here -->
+      <div id="search-results"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790"></script>
+
+    <script>
+      // Firebase Configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDoiDU6sWAYe-d2AM44OQm_2j2gxXR0Gqk",
+        authDomain: "project-kmax.firebaseapp.com",
+        databaseURL: "https://project-kmax-default-rtdb.firebaseio.com",
+        projectId: "project-kmax",
+        storageBucket: "project-kmax.appspot.com",
+        messagingSenderId: "984425559296",
+        appId: "1:984425559296:web:5f78740bd7b2829d872fe5",
+        measurementId: "G-DS1MYSDJPC",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const appCheck = firebase.appCheck();
+      appCheck.activate("6LfhzAspAAAAAJl0OhxEbxi2b81mbd-SD9Ybk790", true);
+
+      // Firebase Realtime Database Reference
+      // Firebase Realtime Database Reference
+      var db = firebase.database();
+      var modsRef = db.ref("mods").orderByChild("timestamp").limitToLast(10); // Change "posts" to "mods"
+
+      // Function to perform the search
+      function performSearch(query) {
+        var searchResultsDiv = document.getElementById("search-results");
+        searchResultsDiv.innerHTML = ""; // Clear previous search results
+
+        modsRef.once("value").then(function (snapshot) {
+          // Update the reference to modsRef
+          var sortedMods = [];
+
+          snapshot.forEach(function (childSnapshot) {
+            var mod = childSnapshot.val();
+            if (
+              mod.title.toLowerCase().includes(query.toLowerCase()) ||
+              (mod.content &&
+                mod.content.toLowerCase().includes(query.toLowerCase()))
+            ) {
+              sortedMods.push(mod);
+            }
+          });
+
+          // Sort mods by timestamp in descending order
+          sortedMods.sort(function (a, b) {
+            return b.timestamp - a.timestamp;
+          });
+
+          // Display the sorted mods as search results
+          sortedMods.forEach(function (mod) {
+            var resultDiv = document.createElement("div");
+            resultDiv.className = "blog-post";
+            // Check if the mod status is "disabled"
+            if (mod.status === "disabled") {
+              resultDiv.innerHTML = `
+              <div class="wow">
+    <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post ${
+      mod.status === "disabled" ? "disabled-card" : ""
+    }" href="${
+                mod.status === "disabled" ? "#" : "view.html?id=" + mod.id
+              }" title="${mod.title}">
+        <div class="d-flex" style="padding: 0.75rem;">
+            <div class="flex-shrink-0" style="width: 4rem; margin-right: 0.75rem;">
+                <img width="96" height="96" src="${
+                  mod.imageUrl
+                }" class="rounded-lg wp-post-image" alt="${mod.title}" />
+            </div>
+            <div style="min-width: 0;">
+                <h3 class="h6 font-weight-semibold text-truncate w-100 mb-1">${
+                  mod.title
+                }</h3>
+                <div class="small text-truncate text-muted">
+                    <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <!-- SVG Path -->
+                    </svg>
+                    <span class="align-middle">${mod.version} </span>
+                    <span class="align-middle">+ </span>
+                    <span class="align-middle">${mod.size}</span>
+                </div>
+                <div class="small text-truncate text-muted">
+                    <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <!-- SVG Path -->
+                    </svg>
+                    <span class="align-middle">${mod.reason}</span>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+    `;
+            } else {
+              // Display the enabled mod
+              resultDiv.innerHTML = `
+              <div class="wow">
+                    <a class="text-body bg-white border rounded shadow-sm overflow-hidden d-block h-100 position-relative archive-post" href="view.html?id=${mod.id}" title="${mod.title}">
+                        <div class="d-flex" style="padding: 0.75rem;">
+                            <div class="flex-shrink-0" style="width: 4rem; margin-right: 0.75rem;">
+                                <img width="96" height="96" src="${mod.imageUrl}" class="rounded-lg wp-post-image" alt="${mod.title}" />
+                            </div>
+                            <div style="min-width: 0;">
+                                <h3 class="h6 font-weight-semibold text-truncate w-100 mb-1">${mod.title}</h3>
+                                <div class="small text-truncate text-muted">
+                                    <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <path d="M567.938 243.908L462.25 85.374A48.003 48.003 0 0 0 422.311 64H153.689a48 48 0 0 0-39.938 21.374L8.062 243.908A47.994 47.994 0 0 0 0 270.533V400c0 26.51 21.49 48 48 48h480c26.51 0 48-21.49 48-48V270.533a47.994 47.994 0 0 0-8.062-26.625zM162.252 128h251.497l85.333 128H376l-32 64H232l-32-64H76.918l85.334-128z"></path>
+                                    </svg>
+                                    <span class="align-middle">${mod.version} </span>
+                                    <span class="align-middle">+ </span>
+                                    <span class="align-middle">${mod.size}</span>
+                                </div>
+                                <div class="small text-truncate text-muted">
+                                    <svg class="svg-6 svg-secondary mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M501.1 395.7L384 278.6c-23.1-23.1-57.6-27.6-85.4-13.9L192 158.1V96L64 0 0 64l96 128h62.1l106.6 106.6c-13.6 27.8-9.2 62.3 13.9 85.4l117.1 117.1c14.6 14.6 38.2 14.6 52.7 0l52.7-52.7c14.5-14.6 14.5-38.2 0-52.7zM331.7 225c28.3 0 54.9 11 74.9 31l19.4 19.4c15.8-6.9 30.8-16.5 43.8-29.5 37.1-37.1 49.7-89.3 37.9-136.7-2.2-9-13.5-12.1-20.1-5.5l-74.4 74.4-67.9-11.3L334 98.9l74.4-74.4c6.6-6.6 3.4-17.9-5.7-20.2-47.4-11.7-99.6.9-136.6 37.9-28.5 28.5-41.9 66.1-41.2 103.6l82.1 82.1c8.1-1.9 16.5-2.9 24.7-2.9zm-103.9 82l-56.7-56.7L18.7 402.8c-25 25-25 65.5 0 90.5s65.5 25 90.5 0l123.6-123.6c-7.6-19.9-9.9-41.6-5-62.7zM64 472c-13.2 0-24-10.8-24-24 0-13.3 10.7-24 24-24s24 10.7 24 24c0 13.2-10.7 24-24 24z"></path>
+                                    </svg>
+                                    <span class="align-middle">${mod.modInfo}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+    `;
+            }
+            searchResultsDiv.appendChild(resultDiv);
+          });
+        });
+      }
+
+      // Event listener for the search button
+      document
+        .getElementById("search-button")
+        .addEventListener("click", function () {
+          var searchQuery = document.getElementById("search-query").value;
+          performSearch(searchQuery);
+        });
+      // Function to get URL parameter by name
+      function getUrlParameter(name) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(window.location.href);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      // Check if 'id' parameter exists in the URL
+      var idParameter = getUrlParameter("id");
+      if (idParameter) {
+        // If 'id' parameter exists, set its value to the search query input
+        document.getElementById("search-query").value = idParameter;
+      }
+      // Function to initiate search if URL contains 'id' parameter
+      function searchIfIdExistsInURL() {
+        var idParameter = getUrlParameter("id");
+        if (idParameter) {
+          // If 'id' parameter exists, trigger the search
+          document.getElementById("search-query").value = idParameter;
+          performSearch(idParameter); // Initiating the search with the 'id' parameter
+        }
+      }
+
+      // Check if 'id' parameter exists in the URL on page load
+      window.addEventListener("load", searchIfIdExistsInURL);
+    </script>
+  </body>
+</html>
