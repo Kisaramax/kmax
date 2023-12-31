@@ -104,6 +104,14 @@
           </select>
         </div>
         <div class="mb-3">
+          <label for="author" class="form-label">Author</label>
+          <select class="form-select" id="author">
+            <option value="Kmax">Kmax</option>
+            <option value="DreamPlay Dev">DreamPlay Dev</option>
+            <option value="YtSchool">YtSchool</option>
+          </select>
+        </div>
+        <div class="mb-3">
           <label for="editors_choice" class="form-label">Editor's Choice</label>
           <select class="form-select" id="editors_choice">
             <option value="true">Yes</option>
@@ -262,7 +270,8 @@
           const imageUrl = document.getElementById("imageUrl").value;
           const main_image = document.getElementById("main_image").value;
           const id = document.getElementById("ids").value;
-          const editors_choice =document.getElementById("editors_choice").value;
+          const editors_choice = document.getElementById("editors_choice").value === "true";
+          const author =document.getElementById("author").value;
           const keywords =document.getElementById("keywords").value;
           const userId = firebase.auth().currentUser.uid;
 
@@ -288,6 +297,7 @@
             id: id,
             timestamp: now,
             editors_choice: editors_choice,
+            author:author,
             keywords:keywords,
             by : userId,
             // Add other properties as needed
