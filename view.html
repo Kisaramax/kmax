@@ -535,6 +535,17 @@
         }
       }
 
+      // Call the function to load mods when the page loads
+      loadEditorsChoiceMods();
+
+      function searchRedirect() {
+        var searchQuery = document.getElementById("searchInput").value;
+        if (searchQuery.trim() !== "") {
+          window.location.href =
+            "search.html?id=" + encodeURIComponent(searchQuery);
+        }
+      }
+
       // Call the function when the page is loaded
       loadMetaTagsById();
     </script>
