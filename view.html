@@ -448,9 +448,9 @@
       function updateMetaTags(mod) {
         try {
           const timestamp = mod.timestamp;
-          const sup = mod.info;
+          const keywords = mod.keywords;
 
-          console.log(sup);
+          console.log(keywords);
 
           const date = new Date(timestamp);
           const now = date.toISOString();
@@ -471,6 +471,9 @@
           const ogPublishedTimeMeta = document.querySelector(
             'meta[property="article:published_time"]'
           );
+          const keywordsMetaTag = document.querySelector(
+            'meta[name="keywords"]'
+          );
 
           if (ogTitleMeta) ogTitleMeta.setAttribute("content", mod.title);
           if (ogDescriptionMeta)
@@ -483,51 +486,53 @@
           if (ogImageMeta) ogImageMeta.setAttribute("content", mod.main_image);
           if (ogPublishedTimeMeta)
             ogPublishedTimeMeta.setAttribute("content", now);
-
-          // Get the keywords meta tag
-          const keywordsMetaTag = document.querySelector(
-            'meta[name="keywords"]'
-          );
-
-          // Check if the keywords meta tag exists
-          if (keywordsMetaTag) {
+          // Check if the keywords exist and are valid before updating the tag
+          if (keywords) {
             keywordsMetaTag.setAttribute("content", keywords);
           } else {
-            // If the keywords meta tag doesn't exist, create a new one
-            const newKeywordsMetaTag = document.createElement("meta");
-            newKeywordsMetaTag.setAttribute("name", "keywords");
-            newKeywordsMetaTag.setAttribute("content", keywords);
-            document.head.appendChild(newKeywordsMetaTag);
+            console.error("Keywords not found or meta tag missing");
+            // Handle the situation where 'keywords' are not available or the meta tag is missing
           }
         } catch (error) {
           console.error("Error updating meta tags:", error);
         }
       }
-
       // Function to load and update meta tags for a specific mod based on the ID from URL
-      function loadMetaTagsById() {
-        // Extracting the ID from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get("id");
+      async function loadMetaTagsById() {
+        try {
+          // Extracting the ID from the URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get("id");
 
-        console.log("Extracted ID from URL:", id);
+          console.log("Extracted ID from URL:", id);
 
-        // Retrieving data from Firebase
-        modsRef.once("value", function (snapshot) {
-          try {
-            var mods = snapshot.val();
-            if (mods && mods[id]) {
-              var mod = mods[id];
-
-              // Update meta tags and title
-              updateMetaTags(mod);
-            } else {
-              console.error("Mod with ID " + id + " not found");
-            }
-          } catch (error) {
-            console.error("Error loading meta tags:", error);
+          if (!id) {
+            console.error("No ID found in the URL");
+            return;
           }
-        });
+
+          // Assuming modsRef is properly defined elsewhere
+          if (!modsRef) {
+            console.error("modsRef is not defined");
+            return;
+          }
+
+          // Retrieving data from Firebase using async/await
+          const snapshot = await modsRef.once("value");
+          const mods = snapshot.val();
+
+          if (mods && mods[id]) {
+            const mod = mods[id];
+
+            // Update meta tags and title
+            updateMetaTags(mod);
+          } else {
+            console.error("Mod with ID " + id + " not found");
+          }
+        } catch (error) {
+          console.error("Error loading meta tags:", error);
+          // Handle Firebase-related errors separately if needed
+        }
       }
 
       // Call the function when the page is loaded
