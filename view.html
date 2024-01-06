@@ -15,7 +15,10 @@
       content="2023-12-11T05:35:48+00:00"
     />
     <meta name="keywords" content="default, keywords, here" />
-    <link rel="icon" href="https://i.ibb.co/dMxZSX2/20231003-050505-1-min-1.png" />
+    <link
+      rel="icon"
+      href="https://i.ibb.co/dMxZSX2/20231003-050505-1-min-1.png"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -333,6 +336,36 @@
             document.getElementById("pageTitle").innerText = mod.title;
             var modDiv = document.createElement("div");
             modDiv.className = "new";
+            // JSON-LD structured data
+            var jsonLD = {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: mod.title,
+              applicationCategory: "Game",
+              operatingSystem: "Android",
+              offers: {
+                "@type": "Offer",
+                price: "Free",
+                availability: "https://schema.org/InStock",
+              },
+              image: [mod.main_image, mod.sub_image_1, mod.sub_image_2],
+              description: mod.paragraph1,
+              author: {
+                "@type": "Person",
+                name: mod.author,
+              },
+              publisher: {
+                "@type": "Organization",
+                name: mod.publisher,
+              },
+              version: mod.version,
+              // Add more relevant fields from your mod data
+            };
+
+            var jsonLDScript = document.createElement("script");
+            jsonLDScript.type = "application/ld+json";
+            jsonLDScript.text = JSON.stringify(jsonLD);
+            modDiv.appendChild(jsonLDScript);
             modDiv.innerHTML = `
 <div class="text-center" id="wow">
         <img
@@ -420,10 +453,7 @@
       <!-- Second Download Button -->
       <div class="text-center mt-4">
   <a href="${mod.downloadLink}" target="_blank" class="btn btn-primary btn-lg">Download</a>
-</div>
-
-
-            
+</div>      
             `;
             document.getElementById("mods-container").appendChild(modDiv);
           } else {
