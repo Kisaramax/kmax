@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+                            http://www.google.com/schemas/sitemap-image/1.1
+                            http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
 
 
 <url>
   <loc>https://kmaxmods.com/</loc>
   <lastmod>2024-01-04T13:02:26+00:00</lastmod>
-  <priority>1.00</priority>
+  <priority>1.00</priority>    
+  <image:image>
+    <image:loc>https://example.com/image1.jpg</image:loc>
+  </image:image>
+
 </url>
 <url>
   <loc>https://kmaxmods.com/dmca.html</loc>
   <lastmod>2024-01-04T13:02:26+00:00</lastmod>
   <priority>0.80</priority>
+  <image:image>
+    <image:loc>https://liteapks.com/wp-content/uploads/2022/12/carx-street-150x150.jpg</image:loc>
+  </image:image>
 </url>
 <url>
   <loc>https://kmaxmods.com/view.html?id=-NmzBXF7kXj1IeYNCtge</loc>
   <lastmod>2024-01-04T13:02:26+00:00</lastmod>
   <priority>0.70</priority>
+  <image:image>
+    <image:loc>https://liteapks.com/wp-content/uploads/2022/12/carx-street-150x150.jpg</image:loc>
+  </image:image>
+</url>
+<url>
+  <loc>https://kmaxmods.com/view.html?id=-NmytBYTAnD_HtpUXWVV</loc>
+  <lastmod>2024-01-04T13:02:26+00:00</lastmod>
+  <priority>0.70</priority>
+  <image:image>
+    <image:loc>https://play-lh.googleusercontent.com/vi47cCfE3cVzvh16n8MMIDTp4b9_4Y8-eGonLao9v2xU-G2OUPNKEcyyRCiEx9lGKGg=s64-rw</image:loc>
+  </image:image>
 </url>
 
 
