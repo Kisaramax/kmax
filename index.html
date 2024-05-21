@@ -529,7 +529,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf1a0cpAAAAAKKFphrD4cd6bd47UTso6Pxo-t03"></script>
-
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
     <script>
       // Firebase Configuration
       const firebaseConfig = {
@@ -544,6 +544,7 @@
       };
 
       // Initialize Firebase
+      const analytics = firebase.analytics();
       firebase.initializeApp(firebaseConfig);
       const appCheck = firebase.appCheck();
       appCheck.activate("6Lf1a0cpAAAAAKKFphrD4cd6bd47UTso6Pxo-t03", true);
